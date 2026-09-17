@@ -74,7 +74,11 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* auto-fit, not auto-fill: with fewer games than columns (today, just
+     one), auto-fill leaves phantom empty columns and the real card stays
+     stuck at its minimum width instead of filling the row — same fix
+     already in place on the portfolio's own .card-grid. */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 }
 
