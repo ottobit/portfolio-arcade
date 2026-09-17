@@ -106,6 +106,21 @@ main {
   transition: opacity 0.15s ease;
 }
 
+/* A card that's nothing but a game's own og-card image — no separate
+   icon/title/description because the image already carries them (same
+   pattern as the portfolio's Embergale entry in its Playground). */
+.card--image-only {
+  padding: 0;
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+
 .card-icon {
   display: inline-flex;
   align-items: center;
