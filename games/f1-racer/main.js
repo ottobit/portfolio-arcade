@@ -220,20 +220,115 @@ scene.add(buildBarriers());
   scene.add(lineGroup);
 }
 
-// Car (placeholder box car; local +Z is "front")
-const car = new THREE.Group();
-const body = new THREE.Mesh(
-  new THREE.BoxGeometry(1.8, 0.6, 3.6),
-  new THREE.MeshStandardMaterial({ color: 0xe10600 })
-);
-body.position.y = 0.5;
-car.add(body);
-const cockpit = new THREE.Mesh(
-  new THREE.BoxGeometry(0.9, 0.4, 1.2),
-  new THREE.MeshStandardMaterial({ color: 0x111318 })
-);
-cockpit.position.set(0, 0.85, 0.3);
-car.add(cockpit);
+// Narrows the +Z half of a box geometry's X extent, turning it into a
+// wedge that tapers toward the front (local +Z is "front" throughout).
+function taperFront(geometry, frontScale) {
+  const pos = geometry.attributes.position;
+  let maxZ = 0;
+  for (let i = 0; i < pos.count; i++) maxZ = Math.max(maxZ, pos.getZ(i));
+  for (let i = 0; i < pos.count; i++) {
+    const z = pos.getZ(i);
+    if (z > 0) {
+      const t = z / maxZ;
+      pos.setX(i, pos.getX(i) * (1 - t * (1 - frontScale)));
+    }
+  }
+  pos.needsUpdate = true;
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+// Stylised open-wheel race car (own silhouette, not a licensed vehicle):
+// tapered tub, nose cone, front/rear wings, side pods, four rolling wheels.
+// Local +Z is "front" throughout, matching the heading convention above.
+function buildCar() {
+  const group = new THREE.Group();
+  const paint = new THREE.MeshStandardMaterial({
+    color: 0xe10600,
+    roughness: 0.35,
+    metalness: 0.15,
+  });
+  const dark = new THREE.MeshStandardMaterial({ color: 0x14161c, roughness: 0.6 });
+  const accent = new THREE.MeshStandardMaterial({ color: 0xf4f4f4, roughness: 0.4 });
+  const tireMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.95 });
+  const rimMat = new THREE.MeshStandardMaterial({
+    color: 0xcfcfcf,
+    roughness: 0.3,
+    metalness: 0.7,
+  });
+
+  // Tub
+  const tub = new THREE.Mesh(
+    taperFront(new THREE.BoxGeometry(1.7, 0.5, 3, 4, 1, 4), 0.45),
+    paint
+  );
+  tub.position.y = 0.42;
+  group.add(tub);
+
+  // Nose cone
+  const nose = new THREE.Mesh(new THREE.ConeGeometry(0.42, 1.1, 8), paint);
+  nose.rotation.x = Math.PI / 2;
+  nose.position.set(0, 0.38, 2.0);
+  group.add(nose);
+
+  // Cockpit
+  const cockpit = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.32, 0.9), dark);
+  cockpit.position.set(0, 0.78, 0.1);
+  group.add(cockpit);
+
+  // Side pods
+  for (const side of [1, -1]) {
+    const pod = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.32, 1.3), paint);
+    pod.position.set(0.68 * side, 0.4, -0.4);
+    group.add(pod);
+  }
+
+  // Front wing
+  const frontWing = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.06, 0.4), accent);
+  frontWing.position.set(0, 0.2, 2.35);
+  group.add(frontWing);
+
+  // Rear wing on two struts
+  const rearWing = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.07, 0.45), dark);
+  rearWing.position.set(0, 0.95, -1.55);
+  group.add(rearWing);
+  for (const side of [1, -1]) {
+    const strut = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.45, 0.06), dark);
+    strut.position.set(0.65 * side, 0.72, -1.55);
+    group.add(strut);
+  }
+
+  // Wheels (each an independent group so it can spin around local X)
+  const wheelRadius = 0.4;
+  const wheelPositions = [
+    [0.82, wheelRadius, 1.05],
+    [-0.82, wheelRadius, 1.05],
+    [0.82, wheelRadius, -1.05],
+    [-0.82, wheelRadius, -1.05],
+  ];
+  const wheels = wheelPositions.map(([x, y, z]) => {
+    const wheel = new THREE.Group();
+    const tire = new THREE.Mesh(
+      new THREE.CylinderGeometry(wheelRadius, wheelRadius, 0.3, 16),
+      tireMat
+    );
+    tire.rotation.z = Math.PI / 2;
+    wheel.add(tire);
+    const rim = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.2, 0.2, 0.32, 10),
+      rimMat
+    );
+    rim.rotation.z = Math.PI / 2;
+    wheel.add(rim);
+    wheel.position.set(x, y, z);
+    group.add(wheel);
+    return wheel;
+  });
+
+  return { group, wheels, wheelRadius };
+}
+
+const { group: car, wheels: carWheels, wheelRadius: carWheelRadius } = buildCar();
 scene.add(car);
 
 // --- State -------------------------------------------------------------
@@ -271,6 +366,29 @@ window.addEventListener("keyup", (e) => {
   const action = KEY_MAP[e.code];
   if (action) input[action] = false;
 });
+
+// Touch controls (buttons are hidden on non-touch devices via CSS, but the
+// bindings are harmless either way).
+function bindHoldButton(id, action) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const press = (e) => {
+    e.preventDefault();
+    input[action] = true;
+  };
+  const release = (e) => {
+    e.preventDefault();
+    input[action] = false;
+  };
+  el.addEventListener("pointerdown", press);
+  el.addEventListener("pointerup", release);
+  el.addEventListener("pointerleave", release);
+  el.addEventListener("pointercancel", release);
+}
+bindHoldButton("btn-left", "left");
+bindHoldButton("btn-right", "right");
+bindHoldButton("btn-gas", "forward");
+bindHoldButton("btn-brake", "back");
 
 // --- HUD -----------------------------------------------------------------
 
@@ -345,6 +463,8 @@ function update(dt) {
   // Apply to car mesh
   car.position.set(state.x, 0, state.z);
   car.rotation.y = state.heading;
+  const wheelSpin = (state.speed * dt) / carWheelRadius;
+  for (const wheel of carWheels) wheel.rotation.x -= wheelSpin;
 
   // Chase camera: behind and above the car, looking slightly ahead of it
   const camDistance = 9;
