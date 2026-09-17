@@ -8,6 +8,7 @@ function renderGames() {
     const card = `
       <article class="card ${isPlayable ? "" : "card--disabled"}">
         ${badge}
+        <span class="card-icon" aria-hidden="true">${game.icon || "🎮"}</span>
         <h2>${game.title}</h2>
         <p>${game.description}</p>
       </article>
