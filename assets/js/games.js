@@ -4,7 +4,7 @@ const GAMES = [
   {
     title: "F1 Racer",
     slug: "f1-racer",
-    description: "Meccaniche in definizione.",
-    status: "coming-soon", // "coming-soon" | "playable"
+    description: "Time trial 3D su circuito ovale. Nessun avversario, per ora.",
+    status: "playable", // "coming-soon" | "playable"
   },
 ];
