@@ -5,7 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>F1 Racer — ottobit arcade</title>
   <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script>
+    // Touch-capability detection done in JS, not just CSS: the
+    // (hover: none) and (pointer: coarse) media query is the "correct"
+    // way to ask this, but some mobile browsers report it inconsistently,
+    // which was hiding the on-screen controls on real devices. Checking
+    // touch support directly is more reliable. `?touch=1` / `?touch=0` in
+    // the URL forces it either way, for testing without a phone in hand.
+    (function () {
+      var forced = new URLSearchParams(location.search).get("touch");
+      var isTouch =
+        forced === "1" ||
+        (forced !== "0" &&
+          ("ontouchstart" in window || navigator.maxTouchPoints > 0));
+      if (isTouch) document.documentElement.classList.add("touch");
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>
@@ -32,6 +48,6 @@
     </div>
   </div>
 
-  <script type="module" src="main.js"></script>
+  <script type="module" src="main.js?v=2"></script>
 </body>
 </html>
