@@ -436,7 +436,10 @@ const lapEl = document.getElementById("lap");
 const timeEl = document.getElementById("time");
 const bestEl = document.getElementById("best");
 const speedValueEl = document.getElementById("speed-value");
-const accelBarFillEl = document.getElementById("accel-bar-fill");
+const gaugeFillEl = document.getElementById("gauge-fill");
+const gaugeNeedleEl = document.getElementById("gauge-needle-group");
+const GAUGE_ARC_LENGTH = Math.PI * 90; // matches the SVG arc's radius (90)
+gaugeFillEl.style.strokeDasharray = `${GAUGE_ARC_LENGTH}`;
 
 circuitNameEl.textContent = circuit.name;
 
@@ -470,7 +473,11 @@ function updateHud() {
     : "Migliore --:--.--";
   speedValueEl.textContent = Math.round(Math.abs(state.speed) * KMH_PER_UNIT);
   const speedRatio = Math.min(Math.abs(state.speed) / CAR.maxSpeed, 1);
-  accelBarFillEl.style.width = `${speedRatio * 100}%`;
+  gaugeFillEl.style.strokeDashoffset = `${GAUGE_ARC_LENGTH * (1 - speedRatio)}`;
+  gaugeNeedleEl.setAttribute(
+    "transform",
+    `translate(100,100) rotate(${-90 + speedRatio * 180})`
+  );
 }
 
 // --- Main loop -------------------------------------------------------------

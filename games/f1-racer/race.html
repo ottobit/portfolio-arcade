@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
   <meta name="twitter:image" content="https://ottobit.github.io/portfolio-arcade/assets/images/og-f1-racer.jpg" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <script>
     // Touch-capability detection done in JS, not just CSS: the
     // (hover: none) and (pointer: coarse) media query is the "correct"
@@ -50,11 +50,25 @@
   </div>
 
   <div id="speedo">
+    <svg id="speedo-gauge" viewBox="0 0 200 110" aria-hidden="true">
+      <defs>
+        <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#22d3ee" />
+          <stop offset="50%" stop-color="#e6c229" />
+          <stop offset="100%" stop-color="#e10600" />
+        </linearGradient>
+      </defs>
+      <path d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="10" stroke-linecap="round" />
+      <path id="gauge-fill" d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="url(#gauge-gradient)" stroke-width="10" stroke-linecap="round" />
+      <g id="gauge-needle-group">
+        <line x1="0" y1="0" x2="0" y2="-78" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+      </g>
+      <circle cx="100" cy="100" r="7" fill="#fff" />
+    </svg>
     <div class="speedo-readout">
       <span id="speed-value">0</span>
       <span class="speedo-unit">km/h</span>
     </div>
-    <div id="accel-bar"><div id="accel-bar-fill"></div></div>
   </div>
 
   <div id="hint">WASD / frecce per guidare — 3 giri contro 2 rivali</div>
@@ -82,6 +96,6 @@
     </div>
   </div>
 
-  <script type="module" src="main.js?v=4"></script>
+  <script type="module" src="main.js?v=5"></script>
 </body>
 </html>

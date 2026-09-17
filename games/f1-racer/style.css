@@ -107,21 +107,21 @@ canvas {
   color: var(--text-dim, #9aa1b0);
 }
 
-/* Acceleration bar: fills with current speed as a fraction of top speed —
-   a quick "how hard am I pushing it" readout next to the raw number. */
-#accel-bar {
-  width: 9rem;
-  height: 0.4rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  overflow: hidden;
+/* Analog-style speedometer gauge: a half-circle dial with a needle, like a
+   real dashboard, instead of a plain bar. The needle rotation and the
+   colored arc's fill are both driven by JS as a 0..1 speed ratio. */
+#speedo-gauge {
+  width: 8.5rem;
+  height: auto;
+  overflow: visible;
 }
 
-#accel-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #22d3ee, #e6c229, #e10600);
-  transition: width 0.08s linear;
+#gauge-fill {
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+#gauge-needle-group {
+  transition: transform 0.08s linear;
 }
 
 /* Clear the on-screen buttons when they're showing (see the touch-controls
