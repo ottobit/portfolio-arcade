@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>F1 Racer — ottobit arcade</title>
+  <meta name="description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ottobit.github.io/portfolio-arcade/games/f1-racer/" />
+  <meta property="og:title" content="F1 Racer — ottobit arcade" />
+  <meta property="og:description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
+  <meta property="og:image" content="https://ottobit.github.io/portfolio-arcade/assets/images/og-f1-racer.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="F1 Racer — ottobit arcade" />
+  <meta name="twitter:description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
+  <meta name="twitter:image" content="https://ottobit.github.io/portfolio-arcade/assets/images/og-f1-racer.jpg" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <script>
+    // Touch-capability detection done in JS, not just CSS: the
+    // (hover: none) and (pointer: coarse) media query is the "correct"
+    // way to ask this, but some mobile browsers report it inconsistently,
+    // which was hiding the on-screen controls on real devices. Checking
+    // touch support directly is more reliable. `?touch=1` / `?touch=0` in
+    // the URL forces it either way, for testing without a phone in hand.
+    (function () {
+      var forced = new URLSearchParams(location.search).get("touch");
+      var isTouch =
+        forced === "1" ||
+        (forced !== "0" &&
+          ("ontouchstart" in window || navigator.maxTouchPoints > 0));
+      if (isTouch) document.documentElement.classList.add("touch");
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="hud">
+    <a class="back-link" href="index.html">← circuiti</a>
+    <div class="stats">
+      <div id="circuit-name" class="circuit-name"></div>
+      <div id="position" class="position">Posizione --/3</div>
+      <div id="lap" class="lap">Giro 0/3</div>
+      <div id="time" class="time">Tempo 0:00.00</div>
+      <div id="best" class="best">Migliore --:--.--</div>
+    </div>
+  </div>
+
+  <div id="speedo">
+    <span id="speed-value">0</span>
+    <span class="speedo-unit">km/h</span>
+  </div>
+
+  <div id="hint">WASD / frecce per guidare — 3 giri contro 2 rivali</div>
+
+  <div id="touch-controls">
+    <div class="touch-group touch-group--steer">
+      <button id="btn-left" class="touch-btn" aria-label="Sterza a sinistra">◀</button>
+      <button id="btn-right" class="touch-btn" aria-label="Sterza a destra">▶</button>
+    </div>
+    <div class="touch-group touch-group--throttle">
+      <button id="btn-brake" class="touch-btn" aria-label="Freno">▼</button>
+      <button id="btn-gas" class="touch-btn touch-btn--big" aria-label="Acceleratore">▲</button>
+    </div>
+  </div>
+
+  <div id="results-overlay" hidden>
+    <div class="results-card">
+      <h2 id="results-title">Gara finita</h2>
+      <ol id="results-order"></ol>
+      <p id="results-points"></p>
+      <div class="results-actions">
+        <a id="results-next" class="results-btn results-btn--primary" href="index.html">Prossimo circuito</a>
+        <a class="results-btn" href="index.html">Torna ai circuiti</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js?v=3"></script>
+</body>
+</html>
