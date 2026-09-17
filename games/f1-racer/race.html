@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
   <meta name="twitter:image" content="https://ottobit.github.io/portfolio-arcade/assets/images/og-f1-racer.jpg" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
   <script>
     // Touch-capability detection done in JS, not just CSS: the
     // (hover: none) and (pointer: coarse) media query is the "correct"
@@ -50,7 +50,13 @@
   </div>
 
   <div id="speedo">
-    <svg id="speedo-gauge" viewBox="0 0 200 110" aria-hidden="true">
+    <div id="shift-lights" aria-hidden="true">
+      <span class="shift-led"></span><span class="shift-led"></span>
+      <span class="shift-led"></span><span class="shift-led"></span>
+      <span class="shift-led"></span><span class="shift-led"></span>
+      <span class="shift-led"></span><span class="shift-led"></span>
+    </div>
+    <svg id="speedo-gauge" viewBox="0 0 200 115" aria-hidden="true">
       <defs>
         <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#22d3ee" />
@@ -60,6 +66,13 @@
       </defs>
       <path d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="10" stroke-linecap="round" />
       <path id="gauge-fill" d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="url(#gauge-gradient)" stroke-width="10" stroke-linecap="round" />
+      <!-- Dial labels for 0 / 60 / 120 / 180 km/h, precomputed on a
+           radius-68 ring around the same pivot (100,100) the needle
+           rotates around. -->
+      <text x="32" y="104" class="gauge-label">0</text>
+      <text x="66" y="45" class="gauge-label">60</text>
+      <text x="134" y="45" class="gauge-label">120</text>
+      <text x="168" y="104" class="gauge-label">180</text>
       <g id="gauge-needle-group">
         <line x1="0" y1="0" x2="0" y2="-78" stroke="#fff" stroke-width="4" stroke-linecap="round" />
       </g>
@@ -74,13 +87,13 @@
   <div id="hint">WASD / frecce per guidare — 3 giri contro 2 rivali</div>
 
   <div id="touch-controls">
-    <div class="touch-group touch-group--steer">
-      <button id="btn-left" class="touch-btn" aria-label="Sterza a sinistra">◀</button>
-      <button id="btn-right" class="touch-btn" aria-label="Sterza a destra">▶</button>
-    </div>
     <div class="touch-group touch-group--throttle">
       <button id="btn-brake" class="touch-btn" aria-label="Freno">▼</button>
       <button id="btn-gas" class="touch-btn touch-btn--big" aria-label="Acceleratore">▲</button>
+    </div>
+    <div class="touch-group touch-group--steer">
+      <button id="btn-left" class="touch-btn" aria-label="Sterza a sinistra">◀</button>
+      <button id="btn-right" class="touch-btn" aria-label="Sterza a destra">▶</button>
     </div>
   </div>
 
@@ -96,6 +109,6 @@
     </div>
   </div>
 
-  <script type="module" src="main.js?v=5"></script>
+  <script type="module" src="main.js?v=6"></script>
 </body>
 </html>

@@ -438,7 +438,9 @@ const bestEl = document.getElementById("best");
 const speedValueEl = document.getElementById("speed-value");
 const gaugeFillEl = document.getElementById("gauge-fill");
 const gaugeNeedleEl = document.getElementById("gauge-needle-group");
+const shiftLedEls = Array.from(document.querySelectorAll(".shift-led"));
 const GAUGE_ARC_LENGTH = Math.PI * 90; // matches the SVG arc's radius (90)
+const GAUGE_MAX_KMH = 180; // matches the dial's printed 0/60/120/180 labels
 gaugeFillEl.style.strokeDasharray = `${GAUGE_ARC_LENGTH}`;
 
 circuitNameEl.textContent = circuit.name;
@@ -471,13 +473,20 @@ function updateHud() {
   bestEl.textContent = state.bestLapTime
     ? `Migliore ${formatTime(state.bestLapTime)}`
     : "Migliore --:--.--";
-  speedValueEl.textContent = Math.round(Math.abs(state.speed) * KMH_PER_UNIT);
-  const speedRatio = Math.min(Math.abs(state.speed) / CAR.maxSpeed, 1);
-  gaugeFillEl.style.strokeDashoffset = `${GAUGE_ARC_LENGTH * (1 - speedRatio)}`;
+  const speedKmh = Math.abs(state.speed) * KMH_PER_UNIT;
+  speedValueEl.textContent = Math.round(speedKmh);
+
+  const gaugeRatio = Math.min(speedKmh / GAUGE_MAX_KMH, 1);
+  gaugeFillEl.style.strokeDashoffset = `${GAUGE_ARC_LENGTH * (1 - gaugeRatio)}`;
   gaugeNeedleEl.setAttribute(
     "transform",
-    `translate(100,100) rotate(${-90 + speedRatio * 180})`
+    `translate(100,100) rotate(${-90 + gaugeRatio * 180})`
   );
+
+  // Shift lights: an F1-wheel touch, lighting up left to right with speed
+  // rather than RPM (this car has no gearbox to shift), green -> red.
+  const litCount = Math.round(gaugeRatio * shiftLedEls.length);
+  shiftLedEls.forEach((led, i) => led.classList.toggle("is-lit", i < litCount));
 }
 
 // --- Main loop -------------------------------------------------------------
