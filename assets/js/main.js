@@ -5,7 +5,17 @@ function renderGames() {
   grid.innerHTML = GAMES.map((game) => {
     const isPlayable = game.status === "playable";
     const badge = isPlayable ? "" : `<span class="badge">In arrivo</span>`;
-    const card = `
+    // A game with its own og-card image shows that card as-is (title and
+    // description already live inside the image), same treatment as the
+    // portfolio's Playground entry for Embergale — no separate icon/text.
+    const card = game.image
+      ? `
+      <article class="card card--image-only ${isPlayable ? "" : "card--disabled"}">
+        ${badge}
+        <img class="card-image" src="${game.image}" alt="${game.title}" loading="lazy">
+      </article>
+    `
+      : `
       <article class="card ${isPlayable ? "" : "card--disabled"}">
         ${badge}
         <span class="card-icon" aria-hidden="true">${game.icon || "🎮"}</span>
