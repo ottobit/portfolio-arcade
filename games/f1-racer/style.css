@@ -36,12 +36,22 @@ canvas {
   pointer-events: none;
 }
 
+/* One continuous panel for the back link + speedo, so there's no ugly gap
+   of empty space between two separately-floating boxes — a thin divider
+   line marks the boundary between them instead. */
+#hud-left {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 #hud .back-link {
   pointer-events: auto;
   color: var(--text-dim, #9aa1b0);
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 0.4rem 0.75rem;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #hud .stats {
@@ -103,17 +113,11 @@ canvas {
    at the bottom. Kept deliberately compact — this is a HUD readout, not
    the main thing on screen. */
 #speedo {
-  /* Left, under the back link — not centered under the top-right stats
-     card, which can grow wide enough on narrow screens (long circuit
-     names) to collide with a horizontally-centered badge. */
-  position: fixed;
-  top: 4.25rem;
-  left: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.4rem 0.75rem 0.3rem;
+  padding: 0.5rem 0.85rem 0.4rem;
   color: var(--text, #e7e9ee);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-variant-numeric: tabular-nums;
