@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Time trial 3D su circuito misto, con due auto sulla pista. Giocabile subito nel browser." />
   <meta name="twitter:image" content="https://ottobit.github.io/portfolio-arcade/assets/images/og-f1-racer.jpg" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
   <script>
     // Touch-capability detection done in JS, not just CSS: the
     // (hover: none) and (pointer: coarse) media query is the "correct"
@@ -91,9 +91,15 @@
       <button id="btn-brake" class="touch-btn" aria-label="Freno">▼</button>
       <button id="btn-gas" class="touch-btn touch-btn--big" aria-label="Acceleratore">▲</button>
     </div>
-    <div class="touch-group touch-group--steer">
-      <button id="btn-left" class="touch-btn" aria-label="Sterza a sinistra">◀</button>
-      <button id="btn-right" class="touch-btn" aria-label="Sterza a destra">▶</button>
+    <div id="wheel-control" class="touch-group touch-group--steer">
+      <svg viewBox="0 0 140 140" aria-hidden="true">
+        <path d="M20,68 A50,50 0 1 1 120,68 L120,96 A12,12 0 0 1 108,108 L32,108 A12,12 0 0 1 20,96 Z"
+          fill="#14161c" stroke="rgba(255,255,255,0.3)" stroke-width="3" />
+        <rect x="63" y="18" width="14" height="24" rx="3" fill="#e6c229" />
+        <circle cx="70" cy="70" r="16" fill="#e10600" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+      </svg>
+      <button id="btn-left" class="wheel-zone wheel-zone--left" aria-label="Sterza a sinistra"></button>
+      <button id="btn-right" class="wheel-zone wheel-zone--right" aria-label="Sterza a destra"></button>
     </div>
   </div>
 
