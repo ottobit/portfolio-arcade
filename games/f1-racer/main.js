@@ -467,9 +467,9 @@ function currentRaceOrder() {
 function updateHud() {
   const order = currentRaceOrder();
   const position = order.findIndex((o) => o.driverId === "player") + 1;
-  positionEl.textContent = `Posizione ${position}/${order.length}`;
+  positionEl.textContent = `P${position}`;
   lapEl.textContent = `Giro ${Math.min(state.lap + 1, LAPS_PER_RACE)}/${LAPS_PER_RACE}`;
-  timeEl.textContent = `Tempo ${formatTime(state.currentLapTime)}`;
+  timeEl.textContent = formatTime(state.currentLapTime);
   bestEl.textContent = state.bestLapTime
     ? `Migliore ${formatTime(state.bestLapTime)}`
     : "Migliore --:--.--";
