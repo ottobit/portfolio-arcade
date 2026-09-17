@@ -5,7 +5,7 @@ const GAMES = [
     title: "F1 Racer",
     slug: "f1-racer",
     icon: "🏎️",
-    description: "Time trial 3D su circuito ovale. Nessun avversario, per ora.",
+    description: "Time trial 3D su circuito misto, con due auto sulla pista.",
     status: "playable", // "coming-soon" | "playable"
   },
 ];
