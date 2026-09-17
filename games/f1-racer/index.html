@@ -19,6 +19,41 @@
   <link rel="stylesheet" href="../../assets/css/style.css" />
   <link rel="stylesheet" href="style.css?v=2" />
   <script>
+    // Visible failure instead of a silent blank page: if the module script
+    // throws (CDN unreachable, WebGL unsupported, anything else) this shows
+    // it on screen, since we can't see the user's own browser console.
+    function showFatalError(e) {
+      if (document.getElementById("fatal-error")) return;
+      var msg = (e && e.message) || (e && e.reason && e.reason.message) || String(e);
+      var el = document.createElement("div");
+      el.id = "fatal-error";
+      el.style.cssText =
+        "position:fixed;inset:0;z-index:9999;display:flex;align-items:center;" +
+        "justify-content:center;padding:2rem;color:#fff;background:#1a0000;" +
+        "font:14px monospace;white-space:pre-wrap;text-align:center;";
+      el.textContent = "Errore nel caricamento del gioco:\n" + msg;
+      document.body.appendChild(el);
+    }
+    window.addEventListener("error", showFatalError);
+    window.addEventListener("unhandledrejection", function (e) {
+      showFatalError(e.reason);
+    });
+    // A failed cross-origin module fetch (e.g. cdn.jsdelivr.net blocked by
+    // the network) does NOT fire window.onerror — the page just stays
+    // blank forever with no visible sign of what went wrong. So also check,
+    // after a few seconds, whether the game ever actually mounted a canvas;
+    // if not, something upstream of main.js's own code failed.
+    setTimeout(function () {
+      if (!document.querySelector("#app canvas")) {
+        showFatalError(
+          "Il gioco non si è avviato entro pochi secondi.\n" +
+            "Probabile causa: la rete blocca cdn.jsdelivr.net (Three.js), " +
+            "o il browser non supporta WebGL/moduli ES.\n" +
+            "Prova a ricaricare, un'altra rete o un altro browser."
+        );
+      }
+    }, 4000);
+
     // Touch-capability detection done in JS, not just CSS: the
     // (hover: none) and (pointer: coarse) media query is the "correct"
     // way to ask this, but some mobile browsers report it inconsistently,
