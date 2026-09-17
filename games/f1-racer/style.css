@@ -80,13 +80,20 @@ canvas {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  align-items: baseline;
-  gap: 0.35em;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--text, #e7e9ee);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
   pointer-events: none;
+}
+
+.speedo-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
 }
 
 #speed-value {
@@ -98,6 +105,23 @@ canvas {
 .speedo-unit {
   font-size: 0.9rem;
   color: var(--text-dim, #9aa1b0);
+}
+
+/* Acceleration bar: fills with current speed as a fraction of top speed —
+   a quick "how hard am I pushing it" readout next to the raw number. */
+#accel-bar {
+  width: 9rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+#accel-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22d3ee, #e6c229, #e10600);
+  transition: width 0.08s linear;
 }
 
 /* Clear the on-screen buttons when they're showing (see the touch-controls

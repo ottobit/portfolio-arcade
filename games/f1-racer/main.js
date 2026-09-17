@@ -436,6 +436,7 @@ const lapEl = document.getElementById("lap");
 const timeEl = document.getElementById("time");
 const bestEl = document.getElementById("best");
 const speedValueEl = document.getElementById("speed-value");
+const accelBarFillEl = document.getElementById("accel-bar-fill");
 
 circuitNameEl.textContent = circuit.name;
 
@@ -468,6 +469,8 @@ function updateHud() {
     ? `Migliore ${formatTime(state.bestLapTime)}`
     : "Migliore --:--.--";
   speedValueEl.textContent = Math.round(Math.abs(state.speed) * KMH_PER_UNIT);
+  const speedRatio = Math.min(Math.abs(state.speed) / CAR.maxSpeed, 1);
+  accelBarFillEl.style.width = `${speedRatio * 100}%`;
 }
 
 // --- Main loop -------------------------------------------------------------
