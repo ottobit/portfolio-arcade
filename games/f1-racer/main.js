@@ -231,6 +231,41 @@ scene.add(buildBarriers());
   scene.add(lineGroup);
 }
 
+// Paints a numbered grid box on the tarmac at a starting slot — what
+// actually makes a grid a *grid* rather than just "three cars parked in a
+// row": each position is its own marked, numbered spot on the track.
+function buildGridNumberTexture(number) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 128;
+  canvas.height = 256;
+  const ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "rgba(255,255,255,0.85)";
+  ctx.lineWidth = 10;
+  ctx.strokeRect(9, 9, canvas.width - 18, canvas.height - 18);
+  ctx.fillStyle = "rgba(255,255,255,0.85)";
+  ctx.font = "bold 130px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(String(number), canvas.width / 2, canvas.height / 2 + 6);
+  return new THREE.CanvasTexture(canvas);
+}
+
+function addGridBoxMarking(slot, number) {
+  const group = new THREE.Group();
+  group.position.set(slot.x, 0.03, slot.z);
+  group.rotation.y = slot.heading;
+
+  const material = new THREE.MeshBasicMaterial({
+    map: buildGridNumberTexture(number),
+    transparent: true,
+    depthWrite: false,
+  });
+  const box = new THREE.Mesh(new THREE.PlaneGeometry(3, 6), material);
+  box.rotation.x = -Math.PI / 2;
+  group.add(box);
+  scene.add(group);
+}
+
 // Narrows the +Z half of a box geometry's X extent, turning it into a
 // wedge that tapers toward the front (local +Z is "front" throughout).
 function taperFront(geometry, frontScale) {
@@ -421,6 +456,10 @@ const state = {
   prevRawProgress: 0,
   totalProgress: 0,
 };
+
+addGridBoxMarking(start, 1);
+addGridBoxMarking(aiCars[0], 2);
+addGridBoxMarking(aiCars[1], 3);
 
 // "countdown" (grid, frozen, waiting for the 3-2-1) -> "racing" -> "finished"
 let raceState = "countdown";
