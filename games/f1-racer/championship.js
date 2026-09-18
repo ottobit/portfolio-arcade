@@ -6,12 +6,19 @@ const STORAGE_KEY = "f1racer-championship-v1";
 
 export const DRIVERS = [
   { id: "player", name: "Tu" },
+  { id: "rival-red", name: "Rivale Rosso" },
   { id: "rival-blue", name: "Rivale Blu" },
+  { id: "rival-blue-2", name: "Rivale Blu 2" },
   { id: "rival-yellow", name: "Rivale Giallo" },
+  { id: "rival-yellow-2", name: "Rivale Giallo 2" },
+  { id: "rival-green-1", name: "Rivale Verde 1" },
+  { id: "rival-green-2", name: "Rivale Verde 2" },
+  { id: "rival-white-1", name: "Rivale Bianco 1" },
+  { id: "rival-white-2", name: "Rivale Bianco 2" },
 ];
 
-// Classic-ish top-3 points; there are only ever 3 cars in a race.
-export const POINTS_BY_POSITION = [25, 18, 15];
+// Real F1 points system (top 10 score) — fits a ten-car grid exactly.
+export const POINTS_BY_POSITION = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
 
 export function loadState() {
   try {

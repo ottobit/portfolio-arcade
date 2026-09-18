@@ -1,6 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 import { CIRCUITS, getCircuit, LAPS_PER_RACE } from "./circuits.js";
-import { DRIVERS, recordRaceResult } from "./championship.js";
+import { DRIVERS, POINTS_BY_POSITION, recordRaceResult } from "./championship.js";
 
 /*
  * F1 Racer — championship mode: a fixed-lap race against two AI rivals on
@@ -372,13 +372,22 @@ function buildCar(paintColor) {
 const playerCar = buildCar(0xe10600);
 scene.add(playerCar.group);
 
-// Two AI rivals, colors matched to their championship driver ids. All three
-// cars now line up on a real starting grid behind the start/finish line
-// (staggered left/right like an F1 grid) instead of being scattered partway
-// around the track already at speed — see startCountdown() for the 3-2-1.
+// Nine AI rivals in five colour pairs (teammates share a livery, like real
+// F1 teams) plus the player makes a full ten-car grid. Colors matched to
+// their championship driver ids in championship.js. All ten cars line up on
+// a real starting grid behind the start/finish line instead of being
+// scattered partway around the track already at speed — see
+// startCountdown() for the 3-2-1.
 const AI_DRIVERS = [
+  { id: "rival-red", color: 0xe10600 }, // player's teammate
   { id: "rival-blue", color: 0x1c5fd6 },
+  { id: "rival-blue-2", color: 0x1c5fd6 },
   { id: "rival-yellow", color: 0xe6c229 },
+  { id: "rival-yellow-2", color: 0xe6c229 },
+  { id: "rival-green-1", color: 0x1f9d4a },
+  { id: "rival-green-2", color: 0x1f9d4a },
+  { id: "rival-white-1", color: 0xf5f5f5 },
+  { id: "rival-white-2", color: 0xf5f5f5 },
 ];
 
 const GRID_ROW_GAP = 5; // meters behind the previous row
@@ -410,10 +419,18 @@ function gridSlot(row, lane) {
 // A real F1 grid is paired, not single-file: two cars side by side per row,
 // each row staggered back from the one in front, sides alternating (odd
 // positions on one side, even on the other) — not a zig-zag of one car
-// per row.
+// per row. Each colour pair shares a row, so teammates start side by side,
+// just like the player's own row-0 teammate.
 const AI_GRID_SLOTS = [
-  { row: 0, lane: 1 }, // P2, alongside pole, opposite side
-  { row: 1, lane: -1 }, // P3, one row back, same side as pole
+  { row: 0, lane: 1 }, // P2, red teammate, alongside pole
+  { row: 1, lane: -1 }, // P3
+  { row: 1, lane: 1 }, // P4, blue teammate
+  { row: 2, lane: -1 }, // P5
+  { row: 2, lane: 1 }, // P6, yellow teammate
+  { row: 3, lane: -1 }, // P7
+  { row: 3, lane: 1 }, // P8, green teammate
+  { row: 4, lane: -1 }, // P9
+  { row: 4, lane: 1 }, // P10, white teammate
 ];
 const aiCars = AI_DRIVERS.map((driver, i) => {
   const model = buildCar(driver.color);
@@ -458,8 +475,7 @@ const state = {
 };
 
 addGridBoxMarking(start, 1);
-addGridBoxMarking(aiCars[0], 2);
-addGridBoxMarking(aiCars[1], 3);
+aiCars.forEach((car, i) => addGridBoxMarking(car, i + 2));
 
 // "countdown" (grid, frozen, waiting for the 3-2-1) -> "racing" -> "finished"
 let raceState = "countdown";
@@ -710,7 +726,7 @@ function finishRace() {
   const state2 = recordRaceResult(circuit.id, order);
 
   const position = order.indexOf("player") + 1;
-  const points = [25, 18, 15][position - 1] || 0;
+  const points = POINTS_BY_POSITION[position - 1] || 0;
 
   document.getElementById("results-title").textContent =
     position === 1 ? "Vittoria!" : `Arrivato ${position}°`;

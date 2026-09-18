@@ -320,6 +320,9 @@ html.touch #touch-controls {
 .results-card {
   width: 100%;
   max-width: 26rem;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   background: var(--surface, #14171f);
   border: 1px solid var(--border, #262b36);
   border-radius: 14px;
@@ -330,13 +333,21 @@ html.touch #touch-controls {
 
 .results-card h2 {
   margin: 0 0 1rem;
+  flex: 0 0 auto;
 }
 
+/* With up to ten finishers, the list can get taller than the viewport —
+   only it scrolls (min-height: 0 is what lets a flex child shrink below
+   its content size at all), so the title, points and action buttons stay
+   in view instead of getting pushed off top or bottom. */
 #results-order {
   list-style: none;
   margin: 0 0 1rem;
   padding: 0;
   text-align: left;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 #results-order li {
