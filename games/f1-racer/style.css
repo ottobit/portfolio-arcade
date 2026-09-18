@@ -1,4 +1,8 @@
-html, body {
+/* Fullscreen-no-scroll is only right for the race page (fixed canvas +
+   HUD overlay) — the menu page below it needs to scroll normally, so this
+   is scoped to race.html's own <html class="race">, not shared globally. */
+html.race,
+html.race body {
   height: 100%;
   overflow: hidden;
 }
