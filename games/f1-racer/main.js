@@ -696,10 +696,37 @@ function resolveCarCollisions(cars) {
   }
 }
 
-function updateAiCar(car, dt) {
+// AI steering had no idea other cars existed — it always aimed straight at
+// the centerline, so with ten cars on the grid, any two side by side would
+// both steer back onto the same line and stay locked together, re-colliding
+// every frame instead of the one push-apart nudge resolving it. This adds a
+// lateral-only nudge (along the track's own side-normal, not back toward or
+// away along it) away from anything within AI_AVOID_RADIUS, so cars settle
+// into their own line instead of fighting over one.
+const AI_AVOID_RADIUS = 4.5;
+const AI_AVOID_STRENGTH = 10;
+
+function updateAiCar(car, dt, allCars) {
   const info = nearestTrackInfo(car.x, car.z);
   const target = centerline[(info.idx + AI.lookahead) % centerline.length];
-  const toTarget = Math.atan2(target.x - car.x, target.z - car.z);
+
+  const lateral = sideNormal(centerline[info.idx]);
+  let avoidPush = 0;
+  for (const other of allCars) {
+    if (other === car) continue;
+    const dx = car.x - other.x;
+    const dz = car.z - other.z;
+    const dist = Math.hypot(dx, dz);
+    if (dist > 0.001 && dist < AI_AVOID_RADIUS) {
+      const closeness = (AI_AVOID_RADIUS - dist) / AI_AVOID_RADIUS;
+      const side = dx * lateral.x + dz * lateral.z;
+      if (side !== 0) avoidPush += Math.sign(side) * closeness;
+    }
+  }
+  const aimX = target.x + lateral.x * avoidPush * AI_AVOID_STRENGTH;
+  const aimZ = target.z + lateral.z * avoidPush * AI_AVOID_STRENGTH;
+
+  const toTarget = Math.atan2(aimX - car.x, aimZ - car.z);
   let err = toTarget - car.heading;
   while (err > Math.PI) err -= 2 * Math.PI;
   while (err < -Math.PI) err += 2 * Math.PI;
@@ -828,8 +855,9 @@ function update(dt) {
 
   const info = nearestTrackInfo(state.x, state.z);
   applyTrackBoundary(state, dt, info);
-  for (const car of aiCars) updateAiCar(car, dt);
-  resolveCarCollisions([state, ...aiCars]);
+  const allCars = [state, ...aiCars];
+  for (const car of aiCars) updateAiCar(car, dt, allCars);
+  resolveCarCollisions(allCars);
 
   applyToMesh(playerCar, state.x, state.z, state.heading, state.speed, dt);
   for (const car of aiCars) applyToMesh(car, car.x, car.z, car.heading, car.speed, dt);
