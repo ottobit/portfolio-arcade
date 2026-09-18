@@ -346,17 +346,29 @@ const AI_DRIVERS = [
   { id: "rival-yellow", color: 0xe6c229 },
 ];
 
-const gridStart = centerline[0];
-const gridHeading = headingOf(gridStart);
-const gridBack = { x: -Math.sin(gridHeading), z: -Math.cos(gridHeading) };
-const gridLateral = sideNormal(gridStart);
 const GRID_ROW_GAP = 5; // meters behind the previous row
 const GRID_LANE_OFFSET = Math.min(TRACK_WIDTH / 4, 3.2); // stay clear of grass
+const TRACK_LENGTH = trackCurve.getLength();
+const GRID_ROW_SAMPLES = Math.max(
+  1,
+  Math.round((GRID_ROW_GAP / TRACK_LENGTH) * centerline.length)
+);
 
+// Places a grid slot by walking backward along the actual centerline from
+// the start/finish line, not offsetting in one fixed direction — a couple
+// of these circuits have the line sitting just before a bend, and a
+// straight-line offset there cut across the grass instead of following the
+// road. Each slot also takes its own heading from the curve at that point.
 function gridSlot(row, lane) {
+  const idx =
+    (((-row * GRID_ROW_SAMPLES) % centerline.length) + centerline.length) %
+    centerline.length;
+  const p = centerline[idx];
+  const lateral = sideNormal(p);
   return {
-    x: gridStart.x + gridBack.x * GRID_ROW_GAP * row + gridLateral.x * GRID_LANE_OFFSET * lane,
-    z: gridStart.z + gridBack.z * GRID_ROW_GAP * row + gridLateral.z * GRID_LANE_OFFSET * lane,
+    x: p.x + lateral.x * GRID_LANE_OFFSET * lane,
+    z: p.z + lateral.z * GRID_LANE_OFFSET * lane,
+    heading: headingOf(p),
   };
 }
 
@@ -379,7 +391,7 @@ const aiCars = AI_DRIVERS.map((driver, i) => {
     driverId: driver.id,
     x: pos.x,
     z: pos.z,
-    heading: gridHeading,
+    heading: pos.heading,
     speed: 0,
     prevRawProgress: info.idx / centerline.length,
     totalProgress: 0,
@@ -400,7 +412,7 @@ const start = gridSlot(0, -1); // pole position, left side of the front row
 const state = {
   x: start.x,
   z: start.z,
-  heading: gridHeading,
+  heading: start.heading,
   speed: 0,
   lap: 0,
   lapStartTime: performance.now(),
