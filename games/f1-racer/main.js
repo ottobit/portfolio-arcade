@@ -22,12 +22,17 @@ const CONTROL_POINTS = circuit.points.map(([x, z]) => new THREE.Vector3(x, 0, z)
 
 const trackCurve = new THREE.CatmullRomCurve3(CONTROL_POINTS, true, "catmullrom", 0.5);
 
+// Top speed is tuned to a realistic F1 figure (maxSpeed is treated as m/s
+// for the km/h readout below, so 84 -> ~302 km/h on a straight) rather than
+// the earlier, much slower placeholder value — accel/brakeDecel/coastDecel
+// scale up with it so 0-100%, braking distance, and grass drag all still
+// feel like the same car, just faster.
 const CAR = {
-  maxSpeed: 45,
-  reverseMaxSpeed: -15,
-  accel: 25,
-  brakeDecel: 40,
-  coastDecel: 15,
+  maxSpeed: 84,
+  reverseMaxSpeed: -28,
+  accel: 47,
+  brakeDecel: 75,
+  coastDecel: 28,
   maxTurnRate: 2.0, // rad/s ceiling; actual rate is scaled down further by
   // speed in update() below — a single quick tap used to be enough to spin
   // off track at top speed, so turn authority now drops off as you speed up
@@ -36,8 +41,8 @@ const CAR = {
 const CAR_SCALE = 0.55;
 
 const AI = {
-  maxSpeed: 38,
-  accel: 22,
+  maxSpeed: 71,
+  accel: 41,
   turnRate: 2.1,
   lookahead: 10, // centerline samples ahead to steer toward
 };
@@ -47,7 +52,7 @@ const AI = {
 // apart rather than overlapping. All tuned for arcade feel, not real physics.
 const GRASS_LIMIT = TRACK_WIDTH / 2; // asphalt edge
 const WALL_LIMIT = TRACK_WIDTH / 2 + 1.5; // just inside the barrier line
-const GRASS_MAX_DECEL = 35; // units/s^2 of extra drag at the wall edge
+const GRASS_MAX_DECEL = 65; // units/s^2 of extra drag at the wall edge
 const WALL_BOUNCE_SPEED_FACTOR = 0.25; // speed kept after hitting a wall
 const CAR_RADIUS = 1.0; // rough footprint for car-vs-car contact
 const CAR_BUMP_SPEED_FACTOR = 0.7; // speed kept by both cars on contact
@@ -565,6 +570,69 @@ if (wheelEl) {
   wheelEl.addEventListener("pointercancel", releaseWheel);
 }
 
+// --- Engine sound ----------------------------------------------------------
+//
+// Synthesised, not a sample — this site has no audio assets and no build
+// step to fetch/bundle one. Two detuned oscillators (a low sawtooth for
+// body, a square an octave-and-a-half up for grit) through a lowpass filter
+// whose cutoff opens up with speed, roughly like an engine's tone brightening
+// as revs climb. Browsers block audio before any user gesture, so the
+// AudioContext is only created lazily on the first key/touch input.
+
+let audioCtx = null;
+let engineGain = null;
+let engineFilter = null;
+let engineOsc1 = null;
+let engineOsc2 = null;
+
+function initEngineSound() {
+  if (audioCtx) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return; // no Web Audio support: fail silent, not fatal
+  audioCtx = new Ctx();
+
+  engineGain = audioCtx.createGain();
+  engineGain.gain.value = 0;
+
+  engineFilter = audioCtx.createBiquadFilter();
+  engineFilter.type = "lowpass";
+  engineFilter.frequency.value = 300;
+
+  engineOsc1 = audioCtx.createOscillator();
+  engineOsc1.type = "sawtooth";
+  engineOsc1.frequency.value = 45;
+
+  engineOsc2 = audioCtx.createOscillator();
+  engineOsc2.type = "square";
+  engineOsc2.frequency.value = 45 * 1.5;
+  const osc2Gain = audioCtx.createGain();
+  osc2Gain.gain.value = 0.25;
+
+  engineOsc1.connect(engineFilter);
+  engineOsc2.connect(osc2Gain).connect(engineFilter);
+  engineFilter.connect(engineGain).connect(audioCtx.destination);
+
+  engineOsc1.start();
+  engineOsc2.start();
+}
+
+// speedRatio: 0..1 of the player's own top speed. Silent during the grid
+// countdown (raceState isn't "racing" yet) so the engine note only kicks in
+// once the lights go out.
+function updateEngineSound(speedRatio) {
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const baseFreq = 42 + speedRatio * 220;
+  engineOsc1.frequency.setTargetAtTime(baseFreq, now, 0.05);
+  engineOsc2.frequency.setTargetAtTime(baseFreq * 1.5, now, 0.05);
+  engineFilter.frequency.setTargetAtTime(280 + speedRatio * 2600, now, 0.05);
+  const targetGain = raceState === "racing" ? 0.05 + speedRatio * 0.09 : 0;
+  engineGain.gain.setTargetAtTime(targetGain, now, 0.08);
+}
+
+window.addEventListener("keydown", initEngineSound, { once: true });
+window.addEventListener("pointerdown", initEngineSound, { once: true });
+
 // --- HUD -----------------------------------------------------------------
 
 const circuitNameEl = document.getElementById("circuit-name");
@@ -573,12 +641,9 @@ const lapEl = document.getElementById("lap");
 const timeEl = document.getElementById("time");
 const bestEl = document.getElementById("best");
 const speedValueEl = document.getElementById("speed-value");
-const gaugeFillEl = document.getElementById("gauge-fill");
-const gaugeNeedleEl = document.getElementById("gauge-needle-group");
+const speedFillEl = document.getElementById("speed-fill");
 const shiftLedEls = Array.from(document.querySelectorAll(".shift-led"));
-const GAUGE_ARC_LENGTH = Math.PI * 90; // matches the SVG arc's radius (90)
-const GAUGE_MAX_KMH = 180; // matches the dial's printed 0/60/120/180 labels
-gaugeFillEl.style.strokeDasharray = `${GAUGE_ARC_LENGTH}`;
+const GAUGE_MAX_KMH = 300; // bar reads full at a realistic F1 top speed
 
 circuitNameEl.textContent = circuit.name;
 
@@ -614,16 +679,14 @@ function updateHud() {
   speedValueEl.textContent = Math.round(speedKmh);
 
   const gaugeRatio = Math.min(speedKmh / GAUGE_MAX_KMH, 1);
-  gaugeFillEl.style.strokeDashoffset = `${GAUGE_ARC_LENGTH * (1 - gaugeRatio)}`;
-  gaugeNeedleEl.setAttribute(
-    "transform",
-    `translate(100,100) rotate(${-90 + gaugeRatio * 180})`
-  );
+  speedFillEl.style.width = `${gaugeRatio * 100}%`;
 
   // Shift lights: an F1-wheel touch, lighting up left to right with speed
   // rather than RPM (this car has no gearbox to shift), green -> red.
   const litCount = Math.round(gaugeRatio * shiftLedEls.length);
   shiftLedEls.forEach((led, i) => led.classList.toggle("is-lit", i < litCount));
+
+  updateEngineSound(Math.abs(state.speed) / CAR.maxSpeed);
 }
 
 // --- Main loop -------------------------------------------------------------
