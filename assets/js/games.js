@@ -6,7 +6,7 @@ const GAMES = [
     slug: "f1-racer",
     icon: "🏎️",
     image: "assets/images/og-f1-racer.jpg",
-    description: "Time trial 3D su circuito misto, con due auto sulla pista.",
+    description: "Mini-campionato 3D: 3 circuiti, 2 rivali, classifica a punti.",
     status: "playable", // "coming-soon" | "playable"
   },
 ];
