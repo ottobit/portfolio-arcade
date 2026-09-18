@@ -326,13 +326,13 @@ html.touch #touch-controls {
   background: var(--surface, #14171f);
   border: 1px solid var(--border, #262b36);
   border-radius: 14px;
-  padding: 1.75rem;
+  padding: 1.25rem 1.75rem;
   color: var(--text, #e7e9ee);
   text-align: center;
 }
 
 .results-card h2 {
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
   flex: 0 0 auto;
 }
 
@@ -342,18 +342,23 @@ html.touch #touch-controls {
    in view instead of getting pushed off top or bottom. */
 #results-order {
   list-style: none;
-  margin: 0 0 1rem;
+  margin: 0;
   padding: 0;
   text-align: left;
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  /* A harmless fade at the very bottom edge — invisible when the list
+     fits, but on a short screen it hints there's more below instead of
+     the list just quietly ending after however many rows fit. */
+  mask-image: linear-gradient(to bottom, black calc(100% - 14px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 14px), transparent 100%);
 }
 
 #results-order li {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0.25rem;
+  padding: 0.35rem 0.25rem;
   border-bottom: 1px solid var(--border, #262b36);
 }
 
@@ -364,13 +369,15 @@ html.touch #touch-controls {
 
 #results-points {
   color: var(--text-dim, #9aa1b0);
-  margin: 0 0 1.25rem;
+  margin: 0.75rem 0 1rem;
+  flex: 0 0 auto;
 }
 
 .results-actions {
   display: flex;
   gap: 0.75rem;
   justify-content: center;
+  flex: 0 0 auto;
 }
 
 .results-btn {
