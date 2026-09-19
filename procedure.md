@@ -21,8 +21,15 @@ Se un task ricade in più categorie, possono essere applicate più label.
 5. **Commit / Push** — commit sul branch dedicato. **Mai commit o push diretti su `master`.**
 6. **Pull Request** — aprire una PR verso `master`, collegata alla issue e con descrizione di modifica e test.
 7. **Test di release** — verificare regressioni e criteri della release checklist. Un controllo non eseguibile con gli strumenti disponibili deve essere dichiarato **non testato**, mai considerato passato.
-8. **Merge** — effettuare il merge solo dopo i controlli previsti. Il commit risultante su `master` deve provenire dalla PR.
-9. **Prossima issue** — solo dopo la conclusione della precedente si passa al task successivo.
+8. **Approvazione utente** — per default, dopo sviluppo, test e test di release, lasciare la PR aperta. Il merge avviene solo quando l'utente approva esplicitamente dicendo **`Concludi`**.
+9. **Merge** — dopo `Concludi`, effettuare il merge della PR. Il commit risultante su `master` deve provenire dalla PR.
+10. **Prossima issue** — solo dopo la conclusione della precedente si passa al task successivo.
+
+### Modalità auto-conclusione
+
+Se **prima dello sviluppo** utente e assistente concordano esplicitamente un piano e stabiliscono che quel piano è in **modalità auto-conclusione**, non è necessario attendere `Concludi` per ogni PR prevista dal piano. In quel caso, completati sviluppo, test e release test, la PR può essere mergiata automaticamente secondo il piano concordato.
+
+In assenza di un accordo preventivo esplicito sulla modalità auto-conclusione, vale sempre la regola standard: **PR aperta fino a `Concludi`**.
 
 ## Regole di test
 
