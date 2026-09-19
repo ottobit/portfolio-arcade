@@ -23,7 +23,8 @@ Se un task ricade in più categorie, possono essere applicate più label.
 7. **Test di release** — verificare regressioni e criteri della release checklist. Un controllo non eseguibile con gli strumenti disponibili deve essere dichiarato **non testato**, mai considerato passato.
 8. **Approvazione utente** — per default, dopo sviluppo, test e test di release, lasciare la PR aperta. Il merge avviene solo quando l'utente approva esplicitamente dicendo **`Concludi`**.
 9. **Merge** — dopo `Concludi`, effettuare il merge della PR. Il commit risultante su `master` deve provenire dalla PR.
-10. **Prossima issue** — solo dopo la conclusione della precedente si passa al task successivo.
+10. **Ordine di conclusione PR** — se ci sono più PR aperte da concludere, effettuare merge/chiusura in **ordine numerico crescente**. Deviare dall'ordine solo in presenza di una dipendenza tecnica esplicita, da dichiarare prima del merge.
+11. **Prossima issue** — solo dopo la conclusione della precedente si passa al task successivo.
 
 ### Modalità auto-conclusione
 
