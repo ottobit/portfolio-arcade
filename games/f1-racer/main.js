@@ -2070,7 +2070,7 @@ function updateAiPitStop(car, now) {
   // the lap, so the service condition above can actually be reached.
   const fraction = car.totalProgress - Math.floor(car.totalProgress);
   if (!car.hasPitted && car.lap >= 1 && fraction > 0.9) {
-    car.speed = Math.min(car.speed, PIT_SPEED_LIMIT * 1.35);
+    car.speed = Math.min(car.speed, PIT_SPEED_LIMIT * 0.75);
   }
   return false;
 }
