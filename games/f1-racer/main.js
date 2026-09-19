@@ -828,6 +828,9 @@ const aiCars = AI_DRIVERS.map((driver, i) => {
     tyreProgress: 0,
     ersCharge: 100,
     ersActive: false,
+    pitState: "none",
+    pitServiceEndTime: 0,
+    hasPitted: false,
   };
 });
 
@@ -1518,6 +1521,9 @@ function progressGapAhead(from, to) {
 }
 
 function updateAiCar(car, dt, allCars) {
+  const now = performance.now();
+  if (updateAiPitStop(car, now)) return;
+
   const info = nearestTrackInfo(car.x, car.z);
   const profile = aiCornerProfile(info.idx);
   const speedRatio = Math.min(Math.abs(car.speed) / AI.maxSpeed, 1);
@@ -1886,6 +1892,9 @@ function applyGridPositions(order) {
     car.lap = 0;
     car.ersCharge = 100;
     car.ersActive = false;
+    car.pitState = "none";
+    car.pitServiceEndTime = 0;
+    car.hasPitted = false;
   });
 }
 
@@ -2022,6 +2031,47 @@ function updatePitStop(now) {
   state.tyreProgress = 0;
   state.damage *= 0.25;
   state.ersCharge = 100;
+  return false;
+}
+
+function updateAiPitStop(car, now) {
+  if (car.pitState === "servicing") {
+    car.speed = 0;
+    car.lateralSpeed = 0;
+    car.yawRate = 0;
+    if (now >= car.pitServiceEndTime) {
+      car.pitState = "none";
+      car.tyreProgress = 0;
+      car.damage *= 0.25;
+      car.ersCharge = 100;
+      car.hasPitted = true;
+    }
+    return true;
+  }
+
+  // One optional stop after lap 1 gives the AI a simple strategy layer while
+  // keeping the three-lap browser race understandable.
+  if (
+    !car.hasPitted &&
+    car.lap >= 1 &&
+    isInPitZone(car) &&
+    Math.abs(car.speed) < PIT_SPEED_LIMIT * 1.25
+  ) {
+    car.pitState = "servicing";
+    car.pitServiceEndTime = now + PIT_SERVICE_MS;
+    car.speed = 0;
+    car.lateralSpeed = 0;
+    car.yawRate = 0;
+    car.ersActive = false;
+    return true;
+  }
+
+  // Start lifting for the pit entry when the car reaches the final part of
+  // the lap, so the service condition above can actually be reached.
+  const fraction = car.totalProgress - Math.floor(car.totalProgress);
+  if (!car.hasPitted && car.lap >= 1 && fraction > 0.9) {
+    car.speed = Math.min(car.speed, PIT_SPEED_LIMIT * 1.35);
+  }
   return false;
 }
 
