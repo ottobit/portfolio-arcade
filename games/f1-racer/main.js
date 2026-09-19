@@ -1704,6 +1704,8 @@ function applyGridPositions(order) {
     car.z = pos.z;
     car.heading = pos.heading;
     car.speed = 0;
+    car.lateralSpeed = 0;
+    car.yawRate = 0;
     car.prevRawProgress = info.idx / centerline.length;
     car.totalProgress = 0;
     car.lap = 0;
