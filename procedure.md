@@ -46,3 +46,18 @@ Per le modifiche in `games/f1-racer/`, mantenere aggiornati quando necessario:
 
 - `games/f1-racer/F1-RACER-WIKI.md` per architettura e comportamento.
 - `games/f1-racer/RELEASE-CHECKLIST.md` per nuovi casi di regressione e release gate.
+- `llm-wiki/wiki/f1-racer/` per decisioni durevoli, roadmap e memoria di progetto
+  che non deve perdersi tra chat, issue e PR.
+
+## LLM Wiki
+
+Il repository usa `llm-wiki/` come memoria markdown mantenuta dagli agenti,
+ispirata al pattern LLM Wiki di Karpathy.
+
+Quando una modifica introduce una decisione architetturale, un vincolo utente,
+una fonte esterna rilevante o un apprendimento riutilizzabile:
+
+1. leggere `llm-wiki/AGENTS.md`;
+2. aggiornare la pagina wiki piu specifica;
+3. aggiungere una fonte in `llm-wiki/sources/` solo se serve;
+4. appendere una nota breve in `llm-wiki/logs/maintenance.md`.
