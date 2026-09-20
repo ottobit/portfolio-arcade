@@ -115,3 +115,31 @@ This repository currently has no automated browser/physics test runner and no Gi
 - [ ] Garage car silhouette/details match the race car model closely.
 - [ ] Drag each of the five component families: only its matching mounting zone highlights and accepts the drop.
 - [ ] Touch/click mounting still works without drag-and-drop.
+
+## Atelier visual upgrade regression
+
+- [ ] Inspect the sculpted car, studio reflections, contact shadows and platform on desktop and a real mobile GPU.
+- [ ] Check all four camera presets at desktop, portrait mobile and landscape sizes.
+- [ ] Orbit with mouse/touch; release, pointer cancellation and a second touch must not leave dragging stuck.
+- [ ] Toggle 360°; reduced-motion users must not get automatic movement.
+- [ ] Preview all three paint finishes; only body paint changes and race livery stays unchanged.
+- [ ] Select all 15 setup variants; reload to verify persistence and stat bars.
+- [ ] Drag each component family to its matching target; reject a different target.
+- [ ] Verify keyboard focus and pressed state on view, paint and setup buttons.
+- [ ] Load a dry and wet race with the shared model; check wheels, opponents and ghost transparency.
+- [ ] Measure frame time on an actual phone with all ten cars visible. Software rendering is not a mobile performance benchmark.
+
+### Validation record — Atelier branch
+
+- PASS: Node syntax parsing for every F1 Racer JS module; `git diff --check`.
+- PASS: imported `car-model.js` against actual Three.js r160 in Node; both detail
+  levels construct successfully with finite vertex positions/normals, four wheel
+  groups, scaled wheel radius and named wing assemblies. Canvas is stubbed only
+  for the carbon texture: this does not validate texture rendering.
+- PASS: material isolation between separate cars (ghost opacity cannot mutate
+  another car). Geometry counts: race 29 meshes / 10,792 triangles; showroom 203
+  meshes / 23,456 triangles. These counts are not measured frame rates.
+- NOT TESTED: WebGL shader compilation, visual rendering, browser initialization,
+  pointer/touch flows, setup UI persistence, full race regression and phone frame
+  rates. Playwright is present but its browser binary is absent; browser download
+  attempts timed out. Keep the PR in draft until browser checks are completed.
