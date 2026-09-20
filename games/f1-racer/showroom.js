@@ -37,7 +37,7 @@ export function createShowroom(host) {
   const signMap=new THREE.CanvasTexture(signCanvas);signMap.colorSpace=THREE.SRGBColorSpace;
   const sign=new THREE.Mesh(new THREE.PlaneGeometry(7,1.75),new THREE.MeshBasicMaterial({map:signMap}));sign.position.set(0,3,-7.72);scene.add(sign);
   let azimuth=.72,elevation=.34,distance=10.4,auto=false,pointer=null,lastX=0,lastY=0;
-  function updateCamera(){const d=distance*(camera.aspect<1?1.3:1);camera.position.set(Math.sin(azimuth)*Math.cos(elevation)*d,.6+Math.sin(elevation)*d,Math.cos(azimuth)*Math.cos(elevation)*d);camera.lookAt(0,.65,0);}
+  function updateCamera(){const d=distance*(camera.aspect<1?1.55:1);camera.position.set(Math.sin(azimuth)*Math.cos(elevation)*d,.6+Math.sin(elevation)*d,Math.cos(azimuth)*Math.cos(elevation)*d);camera.lookAt(0,.65,0);}
   const canvas=renderer.domElement;canvas.setAttribute('aria-label','Monoposto 3D: trascina per orbitare, usa i pulsanti per cambiare vista');
   canvas.addEventListener('pointerdown',e=>{if(pointer!==null)return;pointer=e.pointerId;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(pointer);});
   canvas.addEventListener('pointermove',e=>{if(e.pointerId!==pointer)return;azimuth-=(e.clientX-lastX)*.008;elevation=THREE.MathUtils.clamp(elevation+(e.clientY-lastY)*.004,.1,1.15);lastX=e.clientX;lastY=e.clientY;});
