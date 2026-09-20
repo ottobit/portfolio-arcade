@@ -5,3 +5,5 @@
 @media(max-width:1000px){.garage-layout{grid-template-columns:minmax(0,1fr) 320px;padding:0 2%}.garage-config{margin-left:0;padding:18px}.atelier-title h1{font-size:36px}}
 @media(max-width:760px){.atelier-nav{height:58px;font-size:8px}.atelier-nav b,.live-dot{display:none}.garage-layout{display:flex;flex-direction:column;padding:0}.garage-car-panel{min-height:0}.atelier-title{top:24px;left:22px}.atelier-title h1{font-size:36px;margin:12px 0}.atelier-title p{font-size:10px}.eyebrow{font-size:8px}#garage-canvas{height:590px}.car-caption{top:480px;left:22px}.car-caption>span{font-size:25px}.car-caption p{font-size:7px}.view-controls{margin:-15px 10px 0;gap:3px}.view-controls button{padding:11px 9px;font-size:9px}.garage-config{margin:22px 14px;padding:24px}.garage-hint{margin-bottom:0}.garage-mounts{bottom:120px}.garage-part button{min-height:44px}.finish-controls button{width:26px;height:26px}}
 @media(prefers-reduced-motion:reduce){.garage-page *{transition:none!important}}
+/* Reset generic arcade header chrome inside the atelier navigation. */
+.atelier-nav{padding:0;text-align:left;gap:16px}.atelier-nav::after{display:none}
