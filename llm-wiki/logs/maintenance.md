@@ -8,3 +8,6 @@
   technical handoff.
 - Recorded the F1 Racer livery/cockpit theme integration: shared driver theme
   data, persisted garage livery, race player livery and cockpit theme overlay.
+- Moved the race-livery selector into the scrollable garage setup panel for
+  mobile discoverability, enlarged its touch targets and versioned the garage
+  stylesheet to invalidate stale mobile caches.
