@@ -26,6 +26,10 @@ mechanically plausible way.
 The car preview must stay visible while the player scrolls through selectable
 parts. Choosing a part should immediately show a meaningful preview on the car.
 
+Garage livery selection is real state, not a temporary preview. The five team
+color pairs are persisted in `f1racer-garage-v1` and applied to the player car
+at race startup.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:
@@ -40,3 +44,7 @@ The custom friend names currently assigned across teams are:
 
 Player driver selection exists as a first slice. A follow-up should prevent the
 selected player identity from also appearing as an AI rival in the same race.
+
+Each selectable friend/driver has a cockpit theme with primary, secondary, glow
+and short motto values in `driver-themes.js`. Cockpit decoration should stay
+data-driven and readable rather than becoming hard-coded camera logic.

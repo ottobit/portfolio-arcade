@@ -24,14 +24,19 @@ The current race runtime is coordinated by `main.js`, with focused helpers:
 garage. It keeps gameplay scale separate from visual scale and exposes wheel
 groups so steering and rolling can be animated.
 
+`driver-themes.js` owns shared livery and cockpit theme data. `car-model.js`
+tags paint materials by role, so race and garage can apply the same primary and
+secondary colors without rebuilding separate car definitions.
+
 ## Garage
 
 `garage.html`, `garage.js`, `showroom.js`, `garage.css` and
 `garage-setup.js` implement the setup bay. Setup data is persisted under
 `f1racer-garage-v1` and read by race startup.
 
-The garage currently previews setup families visually, but color selection still
-needs to become a real player livery source.
+The garage previews setup families visually and persists the selected livery.
+The race reads that livery for the player car while AI cars keep their team
+color pairs.
 
 ## Championship and Drivers
 
@@ -39,6 +44,9 @@ needs to become a real player livery source.
 `driver-selection.js` maps the selected friend/driver to the player display
 name. The first implementation changes player identity presentation, but the AI
 grid composition should still be refined to avoid duplicate friend names.
+
+`race-camera.js` builds a lightweight cockpit overlay from the selected driver's
+theme when cockpit camera mode is active.
 
 ## Constraints
 
