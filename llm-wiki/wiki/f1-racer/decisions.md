@@ -30,6 +30,10 @@ Garage livery selection is real state, not a temporary preview. The five team
 color pairs are persisted in `f1racer-garage-v1` and applied to the player car
 at race startup.
 
+The selector belongs at the top of the scrollable setup panel. On mobile this
+keeps the control discoverable and gives every option a thumb-sized target
+without taking space away from the fixed car preview.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:
