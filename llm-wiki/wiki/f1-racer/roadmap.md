@@ -4,15 +4,15 @@
 
 - Choose which custom friend/driver to impersonate without duplicating that
   name in the AI grid.
-- Add cockpit themes for each named friend/driver.
-- Make garage color choice affect the actual player car.
-- Add all five team color pairs to the garage color picker.
+- Extend cockpit themes beyond the first color/badge layer if more personality
+  is desired per friend.
 
 ## Technical Follow-Ups
 
 - Continue keeping `main.js` as orchestration and move reusable logic into
   focused modules only when it reduces real complexity.
 - Keep setup effects centralized in `garage-setup.js`.
+- Keep livery and cockpit theme data centralized in `driver-themes.js`.
 - Keep car presentation details in `car-model.js`, `race-car-view.js`,
   `showroom.js` and garage-specific preview code.
 - Update this LLM Wiki and `games/f1-racer/F1-RACER-WIKI.md` when architecture
