@@ -11,9 +11,17 @@ index.html          landing page dell'arcade (lista giochi)
 assets/css/         stili condivisi
 assets/js/          script condivisi (games.js = registro dei giochi)
 games/<slug>/       un gioco per cartella, ognuno con il proprio index.html
+llm-wiki/           memoria di progetto mantenuta con pattern LLM Wiki
 ```
 
 Nessun build step: HTML/CSS/JS serviti così come sono.
+
+## Memoria di progetto
+
+La conoscenza durevole del progetto vive in [`llm-wiki/`](llm-wiki/README.md):
+fonti sintetizzate, pagine wiki e istruzioni per gli agenti. Per F1 Racer, la
+wiki estesa affianca il handoff tecnico compatto in
+[`games/f1-racer/F1-RACER-WIKI.md`](games/f1-racer/F1-RACER-WIKI.md).
 
 ## Aggiungere un gioco
 
