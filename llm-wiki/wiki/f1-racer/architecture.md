@@ -11,6 +11,10 @@ The current race runtime is coordinated by `main.js`, with focused helpers:
 - `race-input.js` also owns opt-in device-orientation steering, permission,
   screen-axis projection, calibration and stale-data fallback. Rotation and
   backgrounding require explicit reactivation; pedals remain independent.
+  Motion uses atan2 of screen-plane gravity to avoid pitch-dependent gain,
+  averages a stable 500 ms neutral pose and wraps angle differences. Near-flat
+  poses neutralize steering and request a lifted screen. A small direction meter
+  displays the final smoothed command shared with the wheel and vehicle.
 - `steering.js`: pure steering shaping and smoothing math.
 - `player-physics.js`: player movement integration and grip behavior.
 - `race-ai.js`: AI car controller and tactical movement.
