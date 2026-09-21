@@ -62,3 +62,5 @@
 - Added the sixth circuit, Marzamemi, from the supplied route and street video:
   a validated coastal dogbone with dedicated instanced villas, garden walls,
   palms, flowering hedges, utility lines, sandy verge and sea backdrop.
+- Corrected Marzamemi after user feedback: traced the angular map outline,
+  reduced corner smoothing and restored racing kerbs on both road edges.

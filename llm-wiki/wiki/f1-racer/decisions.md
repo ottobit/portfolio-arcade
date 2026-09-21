@@ -135,4 +135,6 @@ position; the player's qualifying summary must state that position explicitly.
 Marzamemi is an adapted real route, not a literal GIS import. The shared-road
 legs visible in the reference are separated into parallel spline segments so
 the ribbon, AI and wall-distance model remain valid. Its scenery must use the
-dedicated coastal theme and instancing rather than generic circuit furniture.
+dedicated coastal theme and instancing, with standard red/white racing kerbs.
+The user rejected rounded end loops: preserve the map angles using close
+corner supports and per-circuit spline tension (0.18 for Marzamemi).
