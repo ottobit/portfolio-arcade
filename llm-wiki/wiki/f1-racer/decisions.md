@@ -32,6 +32,10 @@ Only `Scendi in pista` inside the active circuit slide starts a race. The rest
 of the card is presentation and swipe surface, avoiding competing launch
 buttons and accidental navigation while browsing circuits.
 
+Swipe capture applies only to touch/pen input that starts outside the race CTA.
+Mouse input uses the carousel arrows and must never enter pointer capture, so
+desktop activation of `Scendi in pista` remains a normal link click.
+
 The home prioritizes actions over reference data. Garage and circuit selection
 are the two primary commands directly below the hero, with Garage visually
 dominant. Difficulty and driver live in one session-setup panel, and standings
