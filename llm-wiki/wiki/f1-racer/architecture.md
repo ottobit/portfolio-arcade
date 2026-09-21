@@ -80,6 +80,11 @@ from the same control points consumed by the race. `index.html` and `style.css`
 provide the swipeable carousel viewport, arrow controls, keyboard navigation,
 large launch target and mobile layout.
 
+`circuits.js` includes the real-route-inspired Marzamemi dogbone as the sixth
+round. Its `theme: "marzamemi"` switches `track-art.js` from generic autodrome
+dressing to an instanced coastal streetscape based on the supplied map and
+street video; the geometry remains procedural and static-site friendly.
+
 ## Constraints
 
 - Keep the game static-site friendly.
