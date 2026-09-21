@@ -138,3 +138,6 @@ the ribbon, AI and wall-distance model remain valid. Its scenery must use the
 dedicated coastal theme and instancing, with standard red/white racing kerbs.
 The user rejected rounded end loops: preserve the map angles using close
 corner supports and per-circuit spline tension (0.18 for Marzamemi).
+Marzamemi's kerbs use continuous ribbons aligned with the actual road edge,
+not disconnected boxes. Paint stripes follow distance along each edge and
+close seamlessly; geometry and texture are created once at scene setup.
