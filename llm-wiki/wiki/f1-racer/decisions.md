@@ -15,6 +15,10 @@ remaining browser-friendly.
 
 The top race HUD is liked by the user and should be preserved.
 
+Session clarity is provided outside that HUD: qualifying uses a dedicated,
+mobile-visible banner with its countdown and grid-purpose text, hidden when the
+race begins.
+
 ## Controls
 
 Touch controls must be sized and spaced for real thumbs. Steering should remain
@@ -69,6 +73,10 @@ at race startup.
 The selector belongs at the top of the scrollable setup panel. On mobile this
 keeps the control discoverable and gives every option a thumb-sized target
 without taking space away from the fixed car preview.
+
+Live setup parameters belong on the car preview as a compact translucent
+overlay. The scrolling panel is reserved for recommendations and component
+choices; each overlaid parameter includes its label, bar and numeric value.
 
 The Garage showroom has no driver model. Removing the helmet must reveal a
 modeled cockpit rather than an empty dark cavity; the dedicated `Abitacolo`
