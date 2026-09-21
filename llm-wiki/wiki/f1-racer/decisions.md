@@ -28,6 +28,11 @@ cards. Swipe, visible arrows, keyboard arrows and dot controls all update the
 same selected circuit. The launch action stays inside the active slide and all
 mobile controls keep thumb-sized targets.
 
+The home prioritizes actions over reference data. Garage and circuit selection
+are the two primary commands directly below the hero, with Garage visually
+dominant. Difficulty and driver live in one session-setup panel, and standings
+follow the circuit carousel instead of interrupting the path into a race.
+
 ## Collision Fairness
 
 Player and AI cars have equal mass in car-to-car contact. Relative velocity is
