@@ -439,6 +439,10 @@ html.race #app canvas {
   display: none;
 }
 
+#session-banner{position:fixed;z-index:120;top:16px;left:50%;transform:translateX(-50%);padding:8px 14px;border:1px solid #d8efff55;background:#07111ccc;backdrop-filter:blur(10px);color:#eef8ff;font:800 10px/1.2 system-ui;letter-spacing:.13em;white-space:nowrap;pointer-events:none;box-shadow:0 8px 24px #0006}
+#session-banner[hidden]{display:none}
+@media(max-width:620px){#session-banner{top:8px;max-width:72vw;padding:7px 10px;font-size:8px;white-space:normal;text-align:center}}
+
 /* Touch controls: shown only when JS (see index.html) detects real touch
    support and adds .touch to <html>. Detecting it in JS instead of relying
    purely on the (hover: none)/(pointer: coarse) media query, because that
