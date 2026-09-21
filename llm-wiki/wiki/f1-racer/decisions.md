@@ -21,6 +21,20 @@ Touch controls must be sized and spaced for real thumbs. Steering should remain
 analog and visually readable, and front wheel visuals must follow steering in a
 mechanically plausible way.
 
+## Home and Circuit Selection
+
+Circuit selection uses one large map-led carousel instead of equally weighted
+cards. Swipe, visible arrows, keyboard arrows and dot controls all update the
+same selected circuit. The launch action stays inside the active slide and all
+mobile controls keep thumb-sized targets.
+
+## Collision Fairness
+
+Player and AI cars have equal mass in car-to-car contact. Relative velocity is
+resolved along the contact normal, both cars receive lateral/yaw disturbance,
+and damage is applied symmetrically above a minimum impact speed. Contact
+effects have a short cooldown to avoid repeated damage while cars separate.
+
 ## Garage UX
 
 The car preview must stay visible while the player scrolls through selectable

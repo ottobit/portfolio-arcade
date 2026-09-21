@@ -15,6 +15,7 @@ The current race runtime is coordinated by `main.js`, with focused helpers:
 - `race-camera.js`: chase/cockpit camera behavior.
 - `race-progress.js`: lap counting and race classification.
 - `race-systems.js`: race systems such as DRS, tyres, damage and caution.
+- `race-collisions.js`: bilateral car contact impulse, separation and damage.
 - `race-car-view.js`: visual race car mounting and updates.
 - `race-commands.js`: command bindings and race UI actions.
 
@@ -47,6 +48,13 @@ grid composition should still be refined to avoid duplicate friend names.
 
 `race-camera.js` builds a lightweight cockpit overlay from the selected driver's
 theme when cockpit camera mode is active.
+
+## Circuit Selection
+
+`menu.js` renders a single active circuit at a time using an inline map derived
+from the same control points consumed by the race. `index.html` and `style.css`
+provide the swipeable carousel viewport, arrow controls, keyboard navigation,
+large launch target and mobile layout.
 
 ## Constraints
 

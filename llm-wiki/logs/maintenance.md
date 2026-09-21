@@ -11,3 +11,10 @@
 - Moved the race-livery selector into the scrollable garage setup panel for
   mobile discoverability, enlarged its touch targets and versioned the garage
   stylesheet to invalidate stale mobile caches.
+
+## 2026-09-21
+
+- Replaced the circuit card grid with a map-led, swipeable carousel that shares
+  source geometry with the race and preserves accessible alternate controls.
+- Extracted bilateral car-contact response into `race-collisions.js`; player and
+  AI now share impulse, swerve, damage and impact feedback rules.
