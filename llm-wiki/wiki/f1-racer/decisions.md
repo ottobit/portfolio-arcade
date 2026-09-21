@@ -74,6 +74,15 @@ Garage camera presets must remain inside the modeled studio shell. In
 particular, rear-facing views cannot orbit beyond the back wall at z=-8, because
 the opaque backdrop would sit between the camera and the car.
 
+Team sponsorship is fictional and livery-driven. Both drivers in a team share
+the same restrained sponsor package, limited to small sidepod, nose and rear
+wing placements so the base paint remains dominant.
+
+Lap timing and race completion must use the painted start/finish line, not the
+unshifted spline origin. Finish order is locked per car at the configured race
+distance. AI cars must not perform invisible stops on the racing surface; an
+automatic AI pit strategy can return only with a modeled pit lane.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:
