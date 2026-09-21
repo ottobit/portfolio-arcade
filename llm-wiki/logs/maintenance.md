@@ -42,3 +42,5 @@
   rendered them on the common race/Garage car model.
 - Aligned lap completion with the painted finish line, locked classification at
   each car's finish and removed the invisible lap-one AI pit stops.
+- Enlarged the mobile steering target and added a dynamic race steering wheel
+  with both driver gloves attached to its grips.
