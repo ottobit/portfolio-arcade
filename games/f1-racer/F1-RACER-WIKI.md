@@ -302,6 +302,10 @@ Qualifying has a separate centered translucent banner with the explicit
 remains visible on touch layouts and disappears when the race session begins;
 the existing upper HUD itself is unchanged.
 
+The center instrument cluster is wider and keeps its transparent treatment. In
+addition to the speed bar and digital readout, it includes a 0–300 km/h
+semicircular speedometer whose needle uses the same live speed ratio.
+
 Input:
 - Arrow keys / WASD;
 - touch gas/brake;
