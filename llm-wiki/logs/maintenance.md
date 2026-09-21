@@ -46,3 +46,5 @@
   with both driver gloves attached to its grips.
 - Added data-driven setup recommendations for all five circuits, including a
   Garage comparison and explicit apply action that preserves the livery.
+- Made qualifying explicit with a persistent mobile-visible phase banner and
+  moved numeric setup parameters into a translucent overlay on the Garage car.
