@@ -25,7 +25,8 @@ The current race runtime is coordinated by `main.js`, with focused helpers:
 garage. It keeps gameplay scale separate from visual scale and exposes wheel
 groups so steering and rolling can be animated.
 
-`driver-themes.js` owns shared livery and cockpit theme data. `car-model.js`
+`driver-roster.js` owns the canonical ten identities. `driver-themes.js` owns
+shared livery and cockpit theme data. `car-model.js`
 tags paint materials by role, so race and garage can apply the same primary and
 secondary colors without rebuilding separate car definitions.
 
@@ -39,12 +40,16 @@ The garage previews setup families visually and persists the selected livery.
 The race reads that livery for the player car while AI cars keep their team
 color pairs.
 
+The detailed showroom car is built with `showDriver: false`. Its exposed
+cockpit interior includes a seat, headrest, harness, bolsters, dashboard,
+display and steering wheel; the lightweight race cars still include a driver.
+
 ## Championship and Drivers
 
-`championship.js` owns championship state, scoring and named drivers.
-`driver-selection.js` maps the selected friend/driver to the player display
-name. The first implementation changes player identity presentation, but the AI
-grid composition should still be refined to avoid duplicate friend names.
+`championship.js` owns championship state and scoring. `driver-selection.js`
+maps the selected identity to the player display name. Race startup removes
+that identity from `DRIVER_ROSTER` and creates the nine AI cars from the
+remainder, guaranteeing ten unique names on the grid.
 
 `race-camera.js` builds a lightweight cockpit overlay from the selected driver's
 theme when cockpit camera mode is active.
