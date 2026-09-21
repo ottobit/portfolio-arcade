@@ -48,3 +48,5 @@
   Garage comparison and explicit apply action that preserves the livery.
 - Made qualifying explicit with a persistent mobile-visible phase banner and
   moved numeric setup parameters into a translucent overlay on the Garage car.
+- Widened the transparent center instrument cluster and added a live 0–300 km/h
+  speedometer needle alongside the existing speed bar and digital value.
