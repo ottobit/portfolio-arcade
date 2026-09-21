@@ -131,3 +131,8 @@ At race start the tower switches to the live order returned by
 `currentRaceOrder()` and rerenders only when order or displayed lap changes.
 Equal progress during the standing start is resolved by the qualifying grid
 position; the player's qualifying summary must state that position explicitly.
+
+Marzamemi is an adapted real route, not a literal GIS import. The shared-road
+legs visible in the reference are separated into parallel spline segments so
+the ribbon, AI and wall-distance model remain valid. Its scenery must use the
+dedicated coastal theme and instancing rather than generic circuit furniture.
