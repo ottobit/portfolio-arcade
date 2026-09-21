@@ -40,7 +40,9 @@ visible pit lane; player-requested service remains available.
 
 Race cars include a lightweight seated driver built from the shared procedural
 model. The suit material carries the primary livery role; helmet accents carry
-the secondary color. The detailed Garage path keeps `showDriver: false`.
+the secondary color. A dynamic race steering-wheel group owns both gloves and
+rotates from the same input used for the front wheels. The detailed Garage path
+keeps `showDriver: false`.
 
 ## Garage
 
