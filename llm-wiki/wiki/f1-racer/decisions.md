@@ -21,6 +21,10 @@ Touch controls must be sized and spaced for real thumbs. Steering should remain
 analog and visually readable, and front wheel visuals must follow steering in a
 mechanically plausible way.
 
+The race steering surface stays at least 164 px across on supported mobile
+layouts. The visible driver's gloves sit on a modeled steering wheel, and that
+assembly rotates from the same analog value as the front wheels.
+
 ## Home and Circuit Selection
 
 Circuit selection uses one large map-led carousel instead of equally weighted
