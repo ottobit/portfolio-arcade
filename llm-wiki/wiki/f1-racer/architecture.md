@@ -16,6 +16,7 @@ The current race runtime is coordinated by `main.js`, with focused helpers:
 - `race-progress.js`: lap counting and race classification.
 - `race-systems.js`: race systems such as DRS, tyres, damage and caution.
 - `race-collisions.js`: bilateral car contact impulse, separation and damage.
+- `race-nameplates.js`: screen-space labels projected from visible AI cars.
 - `race-car-view.js`: visual race car mounting and updates.
 - `race-commands.js`: command bindings and race UI actions.
 
@@ -29,6 +30,10 @@ groups so steering and rolling can be animated.
 shared livery and cockpit theme data. `car-model.js`
 tags paint materials by role, so race and garage can apply the same primary and
 secondary colors without rebuilding separate car definitions.
+
+Race cars include a lightweight seated driver built from the shared procedural
+model. The suit material carries the primary livery role; helmet accents carry
+the secondary color. The detailed Garage path keeps `showDriver: false`.
 
 ## Garage
 
