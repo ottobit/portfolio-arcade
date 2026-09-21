@@ -66,20 +66,25 @@ The selector belongs at the top of the scrollable setup panel. On mobile this
 keeps the control discoverable and gives every option a thumb-sized target
 without taking space away from the fixed car preview.
 
+The Garage showroom has no driver model. Removing the helmet must reveal a
+modeled cockpit rather than an empty dark cavity; the dedicated `Abitacolo`
+camera preset makes that interior inspectable.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:
 
 | Team | Drivers |
 | --- | --- |
-| Fenice | Dani Muscle |
+| Fenice | Dani Muscle, Eddy Nitro |
 | Nettuno | Vivian Wendy, Peppy Bau |
 | Solare | Cookie, Rocker Pino |
 | Smeraldo | Alice AaA, May |
 | Artica | Clopy, Lola |
 
-Player driver selection exists as a first slice. A follow-up should prevent the
-selected player identity from also appearing as an AI rival in the same race.
+The ten-driver roster is canonical. The selected identity represents the
+player and is filtered out before the other nine are created as AI rivals, so a
+name cannot appear twice in the same race.
 
 Each selectable friend/driver has a cockpit theme with primary, secondary, glow
 and short motto values in `driver-themes.js`. Cockpit decoration should stay
