@@ -26,3 +26,5 @@
   targets and stronger selected state.
 - Added a dedicated race-launch link outside the swipe viewport so iOS pointer
   capture cannot swallow the only navigation tap into the selected circuit.
+- Removed that duplicate launch link after UX review. `Scendi in pista` is now
+  the only race link, isolated from the rest of the non-clickable slide.
