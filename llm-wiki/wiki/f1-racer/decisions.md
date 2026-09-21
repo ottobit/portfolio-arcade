@@ -122,3 +122,10 @@ the player's own car has no label to preserve the driving view.
 Each selectable friend/driver has a cockpit theme with primary, secondary, glow
 and short motto values in `driver-themes.js`. Cockpit decoration should stay
 data-driven and readable rather than becoming hard-coded camera logic.
+
+The qualifying timing tower is landscape-only and sits on the right, with a
+compact offset that leaves the mobile pedals usable. Rival qualifying times are
+generated once per session and shared by the tower and grid calculation; never
+resynthesize them when qualifying ends.
+At race start the tower switches to the live order returned by
+`currentRaceOrder()` and rerenders only when order or displayed lap changes.
