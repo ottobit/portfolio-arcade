@@ -71,3 +71,8 @@
   half-second stable neutral calibration, explicit 1.5-degree dead zone and a
   live SX/center/DX marker. Mode switches preserve held pedals; background clears
   all inputs. Flat-phone poses prompt lifting the screen instead of amplifying noise.
+- Rebuilt Marzamemi kerbs as continuous road-aligned ribbons (#168), replacing
+  the tangent boxes that exposed gaps/overlaps at corners; added tapered
+  profiles and distance-based red/white paint with a closed UV/normal seam.
+  Eased the inland loop's acute apex locally to remove folded kerb faces;
+  retained the mapped route and validated both ribbon sides structurally.
