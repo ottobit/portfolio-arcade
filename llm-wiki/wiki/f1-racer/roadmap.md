@@ -2,11 +2,6 @@
 
 ## Open Product Work
 
-- Redesign the circuit-selection home around a mobile-first track carousel
-  ([issue #132](https://github.com/ottobit/portfolio-arcade/issues/132)).
-- Make car-to-car collision response bilateral and add perceivable damage for
-  player and AI cars
-  ([issue #133](https://github.com/ottobit/portfolio-arcade/issues/133)).
 - Choose which custom friend/driver to impersonate without duplicating that
   name in the AI grid.
 - Extend cockpit themes beyond the first color/badge layer if more personality
