@@ -33,6 +33,7 @@ export function setupRaceHud({
   const tireWearEl = document.getElementById("tire-wear");
   const speedValueEl = document.getElementById("speed-value");
   const speedFillEl = document.getElementById("speed-fill");
+  const speedNeedleEl = document.getElementById("speedometer-needle");
   const gearValueEl = document.getElementById("gear-value");
   const drsIndicatorEl = document.getElementById("drs-indicator");
   const ersIndicatorEl = document.getElementById("ers-indicator");
@@ -111,6 +112,7 @@ export function setupRaceHud({
 
     const gaugeRatio = Math.min(speedKmh / gaugeMaxKmh, 1);
     speedFillEl.style.width = `${gaugeRatio * 100}%`;
+    speedNeedleEl.style.transform = `rotate(${-110 + gaugeRatio * 220}deg)`;
 
     drsIndicatorEl.classList.toggle("drs-active", state.drsActive);
     const gripPercent = Math.round(tireGripFactor(state.totalProgress, state) * 100);
