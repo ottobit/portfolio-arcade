@@ -56,3 +56,6 @@
   same stable results used to calculate the starting grid.
 - Kept the landscape tower visible during the race as a live classification
   that reacts to overtakes and highlights the player.
+- Reworked the race HUD around mobile visibility: lightweight left-side timing
+  rows, compact speed bar, no analog dial or qualifying banner, and an explicit
+  provisional grid position beside the player's qualifying lap.
