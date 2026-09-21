@@ -54,6 +54,11 @@ The garage previews setup families visually and persists the selected livery.
 The race reads that livery for the player car while AI cars keep their team
 color pairs.
 
+`circuits.js` also owns each track's recommended five-component setup and its
+rationale. `menu.js` persists the active carousel circuit; `garage.js` reads it,
+renders current-to-recommended differences and applies the preset only after an
+explicit user action.
+
 The detailed showroom car is built with `showDriver: false`. Its exposed
 cockpit interior includes a seat, headrest, harness, bolsters, dashboard,
 display and steering wheel; the lightweight race cars still include a driver.
