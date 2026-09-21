@@ -36,3 +36,5 @@
   cockpit interior plus a dedicated `Abitacolo` camera preset.
 - Added seated procedural race drivers with livery-colored suits and lightweight
   projected nameplates for visible AI opponents.
+- Corrected Garage rear/rear-wing camera presets so they remain inside the
+  studio wall, and constrained the race chase camera to the track corridor.

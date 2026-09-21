@@ -70,6 +70,10 @@ The Garage showroom has no driver model. Removing the helmet must reveal a
 modeled cockpit rather than an empty dark cavity; the dedicated `Abitacolo`
 camera preset makes that interior inspectable.
 
+Garage camera presets must remain inside the modeled studio shell. In
+particular, rear-facing views cannot orbit beyond the back wall at z=-8, because
+the opaque backdrop would sit between the camera and the car.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:

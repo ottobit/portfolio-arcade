@@ -7,6 +7,11 @@
 
 ## Technical Follow-Ups
 
+- [#143](https://github.com/ottobit/portfolio-arcade/issues/143): reduce the
+  remaining responsibilities in `main.js` where extraction lowers real
+  complexity.
+- [#144](https://github.com/ottobit/portfolio-arcade/issues/144): replace
+  whole-file GitHub publication with a patch/diff-oriented workflow.
 - Continue keeping `main.js` as orchestration and move reusable logic into
   focused modules only when it reduces real complexity.
 - Keep setup effects centralized in `garage-setup.js`.
