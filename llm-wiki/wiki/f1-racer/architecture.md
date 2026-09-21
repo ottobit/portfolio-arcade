@@ -29,7 +29,14 @@ groups so steering and rolling can be animated.
 `driver-roster.js` owns the canonical ten identities. `driver-themes.js` owns
 shared livery and cockpit theme data. `car-model.js`
 tags paint materials by role, so race and garage can apply the same primary and
-secondary colors without rebuilding separate car definitions.
+secondary colors without rebuilding separate car definitions. The same livery
+records carry fictional team sponsor pairs; cached canvas textures place small
+wordmarks on sidepods, nose and rear wing in both race and Garage models.
+
+`race-progress.js` counts a lap at the painted finish-line offset rather than
+at the spline origin and locks finish positions as cars complete the configured
+distance. AI automatic pit service is intentionally disabled while there is no
+visible pit lane; player-requested service remains available.
 
 Race cars include a lightweight seated driver built from the shared procedural
 model. The suit material carries the primary livery role; helmet accents carry
