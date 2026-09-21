@@ -24,3 +24,5 @@
 - Reworked mobile session setup into explicit A/B choices: a three-segment
   difficulty control and a responsive numbered driver grid with large touch
   targets and stronger selected state.
+- Added a dedicated race-launch link outside the swipe viewport so iOS pointer
+  capture cannot swallow the only navigation tap into the selected circuit.

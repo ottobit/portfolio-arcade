@@ -28,6 +28,10 @@ cards. Swipe, visible arrows, keyboard arrows and dot controls all update the
 same selected circuit. The launch action stays inside the active slide and all
 mobile controls keep thumb-sized targets.
 
+A second, persistent launch button sits outside the swipe viewport and follows
+the selected circuit and difficulty. It is the reliable mobile entry point:
+carousel pointer capture must never be the only way to open a race.
+
 The home prioritizes actions over reference data. Garage and circuit selection
 are the two primary commands directly below the hero, with Garage visually
 dominant. Difficulty and driver live in one session-setup panel, and standings
