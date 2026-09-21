@@ -86,6 +86,14 @@ The ten-driver roster is canonical. The selected identity represents the
 player and is filtered out before the other nine are created as AI rivals, so a
 name cannot appear twice in the same race.
 
+Race drivers must be visible as seated bodies, not floating helmets. Their suit
+uses the car's primary livery color, with dark gloves and the existing
+secondary-color helmet.
+
+Opponent names use small screen-space labels above visible cars. Labels are
+hidden outside the camera frustum and beyond the useful identification range;
+the player's own car has no label to preserve the driving view.
+
 Each selectable friend/driver has a cockpit theme with primary, secondary, glow
 and short motto values in `driver-themes.js`. Cockpit decoration should stay
 data-driven and readable rather than becoming hard-coded camera logic.

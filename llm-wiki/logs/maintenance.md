@@ -34,3 +34,5 @@
   to exclude the selected player identity from the nine-car AI roster.
 - Removed the driver from the detailed Garage model and added an inspectable
   cockpit interior plus a dedicated `Abitacolo` camera preset.
+- Added seated procedural race drivers with livery-colored suits and lightweight
+  projected nameplates for visible AI opponents.
