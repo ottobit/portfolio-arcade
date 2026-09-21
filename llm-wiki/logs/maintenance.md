@@ -50,3 +50,9 @@
   moved numeric setup parameters into a translucent overlay on the Garage car.
 - Widened the transparent center instrument cluster and added a live 0–300 km/h
   speedometer needle alongside the existing speed bar and digital value.
+- Moved the Garage setup-parameter overlay to the upper-left clear area so it
+  no longer covers the centered car rendering.
+- Added a landscape qualifying timing tower whose displayed rival laps are the
+  same stable results used to calculate the starting grid.
+- Kept the landscape tower visible during the race as a live classification
+  that reacts to overtakes and highlights the player.
