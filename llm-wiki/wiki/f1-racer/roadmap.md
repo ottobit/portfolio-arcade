@@ -2,8 +2,6 @@
 
 ## Open Product Work
 
-- Choose which custom friend/driver to impersonate without duplicating that
-  name in the AI grid.
 - Extend cockpit themes beyond the first color/badge layer if more personality
   is desired per friend.
 

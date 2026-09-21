@@ -30,3 +30,7 @@
   the only race link, isolated from the rest of the non-clickable slide.
 - Excluded desktop mouse input and CTA-originated taps from carousel pointer
   capture, restoring reliable `Scendi in pista` navigation on desktop too.
+- Added `Eddy Nitro` as the tenth canonical identity and changed race startup
+  to exclude the selected player identity from the nine-car AI roster.
+- Removed the driver from the detailed Garage model and added an inspectable
+  cockpit interior plus a dedicated `Abitacolo` camera preset.
