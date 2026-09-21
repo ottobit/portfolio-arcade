@@ -59,3 +59,6 @@
 - Reworked the race HUD around mobile visibility: lightweight left-side timing
   rows, compact speed bar, no analog dial or qualifying banner, and an explicit
   provisional grid position beside the player's qualifying lap.
+- Added the sixth circuit, Marzamemi, from the supplied route and street video:
+  a validated coastal dogbone with dedicated instanced villas, garden walls,
+  palms, flowering hedges, utility lines, sandy verge and sea backdrop.
