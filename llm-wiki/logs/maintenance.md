@@ -21,3 +21,6 @@
 - Reordered the F1 home around its primary actions: promoted Garage beside the
   race shortcut, grouped driver/difficulty as session setup, and moved standings
   below circuit selection.
+- Reworked mobile session setup into explicit A/B choices: a three-segment
+  difficulty control and a responsive numbered driver grid with large touch
+  targets and stronger selected state.

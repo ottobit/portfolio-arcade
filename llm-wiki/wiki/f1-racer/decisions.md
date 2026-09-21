@@ -33,6 +33,11 @@ are the two primary commands directly below the hero, with Garage visually
 dominant. Difficulty and driver live in one session-setup panel, and standings
 follow the circuit carousel instead of interrupting the path into a race.
 
+Inside session setup, difficulty is a three-segment choice with short intent
+labels. Driver selection is a numbered 3-column touch grid on ordinary phones
+and falls back to 2 columns on very narrow screens. Targets remain at least
+54 px high and the selected state uses more than color alone.
+
 ## Collision Fairness
 
 Player and AI cars have equal mass in car-to-car contact. Relative velocity is
