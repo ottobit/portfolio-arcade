@@ -67,3 +67,7 @@
 - Added opt-in phone tilt steering (#164), screen-axis gravity projection,
   neutral calibration, three sensitivities, permission handling and touch
   fallback on missing/stale sensors. Physical-device playtesting remains open.
+- Refined motion steering after confusing direction feedback: screen-plane roll,
+  half-second stable neutral calibration, explicit 1.5-degree dead zone and a
+  live SX/center/DX marker. Mode switches preserve held pedals; background clears
+  all inputs. Flat-phone poses prompt lifting the screen instead of amplifying noise.
