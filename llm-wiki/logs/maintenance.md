@@ -18,3 +18,6 @@
   source geometry with the race and preserves accessible alternate controls.
 - Extracted bilateral car-contact response into `race-collisions.js`; player and
   AI now share impulse, swerve, damage and impact feedback rules.
+- Reordered the F1 home around its primary actions: promoted Garage beside the
+  race shortcut, grouped driver/difficulty as session setup, and moved standings
+  below circuit selection.
