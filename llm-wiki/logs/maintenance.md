@@ -38,3 +38,7 @@
   projected nameplates for visible AI opponents.
 - Corrected Garage rear/rear-wing camera presets so they remain inside the
   studio wall, and constrained the race chase camera to the track corridor.
+- Added restrained fictional sponsor packages shared by each team pair and
+  rendered them on the common race/Garage car model.
+- Aligned lap completion with the painted finish line, locked classification at
+  each car's finish and removed the invisible lap-one AI pit stops.
