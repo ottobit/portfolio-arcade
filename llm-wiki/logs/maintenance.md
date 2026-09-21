@@ -28,3 +28,5 @@
   capture cannot swallow the only navigation tap into the selected circuit.
 - Removed that duplicate launch link after UX review. `Scendi in pista` is now
   the only race link, isolated from the rest of the non-clickable slide.
+- Excluded desktop mouse input and CTA-originated taps from carousel pointer
+  capture, restoring reliable `Scendi in pista` navigation on desktop too.
