@@ -8,6 +8,9 @@ There is no bundler requirement.
 The current race runtime is coordinated by `main.js`, with focused helpers:
 
 - `race-input.js`: keyboard, touch pedals and analog steering input.
+- `race-input.js` also owns opt-in device-orientation steering, permission,
+  screen-axis projection, calibration and stale-data fallback. Rotation and
+  backgrounding require explicit reactivation; pedals remain independent.
 - `steering.js`: pure steering shaping and smoothing math.
 - `player-physics.js`: player movement integration and grip behavior.
 - `race-ai.js`: AI car controller and tactical movement.

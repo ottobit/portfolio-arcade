@@ -64,3 +64,6 @@
   palms, flowering hedges, utility lines, sandy verge and sea backdrop.
 - Corrected Marzamemi after user feedback: traced the angular map outline,
   reduced corner smoothing and restored racing kerbs on both road edges.
+- Added opt-in phone tilt steering (#164), screen-axis gravity projection,
+  neutral calibration, three sensitivities, permission handling and touch
+  fallback on missing/stale sensors. Physical-device playtesting remains open.
