@@ -85,3 +85,15 @@
   `localStorage` is origin-scoped (not path-scoped), so extraction would not
   have risked player progress either way — that risk was not the deciding
   factor.
+- **Superseded the same day**: the user reversed #171 on a ground the
+  original analysis hadn't weighed — every one of `portfolio-arcade`'s open
+  issues was already about F1, so keeping it in an "arcade" repo was already
+  fiction. Created `ottobit/f1-racer` (public), extracted
+  `games/f1-racer/`'s full commit history plus its two shared assets via
+  `git filter-repo`, adapted every path/URL for the new flat root layout,
+  and verified both `index.html` and `race.html` load with zero console
+  errors in a real headless-browser check against the migrated tree. Push is
+  blocked on the Claude GitHub App not yet having access to the new repo;
+  enabling GitHub Pages there is a manual step once it does. See the
+  rewritten [Repository Architecture](../wiki/f1-racer/decisions.md#repository-architecture-171)
+  entry for the full reasoning and remaining migration steps.

@@ -97,42 +97,59 @@ automatic AI pit strategy can return only with a modeled pit lane.
 
 ## Repository Architecture (#171)
 
-F1 Racer stays inside `portfolio-arcade`, in `games/f1-racer/`, for now. No
-extraction to a dedicated repository.
+**Superseded 2026-09-23.** F1 Racer is extracted to its own repository,
+[`ottobit/f1-racer`](https://github.com/ottobit/f1-racer) (public, so GitHub
+Pages keeps working on any plan), published at
+`https://ottobit.github.io/f1-racer/`. `portfolio-arcade` keeps a link out to
+it from `assets/js/games.js` instead of hosting the game itself.
 
-Reasoning:
+The original call below (stay inside `portfolio-arcade`) was made on
+technical grounds — none of which turned out to be the deciding factor. The
+user reversed it for a reason that argument never weighed: by the time of
+the original call, **every single open issue in `portfolio-arcade` (10 of
+10) was already about F1**, and the roadmap (multiplayer, Agent API, more
+circuits) only grows that share. An "arcade" repo whose entire issue
+tracker, PR history and roadmap belong to one game is not really an arcade
+repo — it is F1's repo wearing the arcade's name, and every future
+unrelated game would have to wade through that history. Splitting now, while
+there's exactly one game to move, is cheap; splitting later, with a second
+game's issues interleaved in the same tracker, would not be.
 
-- The repo-split question is orthogonal to "can the #170 multiplayer backend
-  deploy from here": GitHub Pages only serves static content regardless of
-  which repo hosts the game, so a WebSocket/SFU backend needs its own deploy
-  target (e.g. Fly.io/Render) either way. Splitting the repo does not solve
-  that by itself.
-- `localStorage` (championship state, garage setup, driver/difficulty
-  choices) is scoped by origin (`https://ottobit.github.io`), not by path.
-  Moving F1 to its own repo under the same GitHub account would keep the same
-  origin and would not silently drop saved progress. Splitting is not needed
-  to protect existing player state.
-- `portfolio-arcade` exists specifically to hold multiple mini-games under one
-  static site (`assets/js/games.js` is a registry for exactly that). F1 is
-  currently the only game, but extracting the flagship game now would
-  contradict that structure without a concrete second game or backend need
-  forcing the issue yet.
-- Extraction has real one-time costs (new Pages setup, redirects for the
-  existing `.../portfolio-arcade/games/f1-racer/` URL already shared/linked,
-  split issue/PR history) that are not worth paying speculatively.
+Practical notes carried over from the superseded analysis (still true, just
+not decisive either way):
 
-Decision: implement the #170 backend as an independently deployed service
-(its own subdirectory, e.g. `games/f1-racer/server/`, with its own hosting
-target and CI, not via GitHub Pages) while the game itself stays in this
-repo. Revisit extraction if any of the following becomes true:
+- GitHub Pages is static regardless of repo, so the #170 multiplayer backend
+  still needs its own deploy target (e.g. Fly.io/Render) wherever the game
+  code lives.
+- `localStorage` is origin-scoped, not path-scoped. Since both repos publish
+  under `https://ottobit.github.io/...`, moving repos does not by itself
+  drop a returning player's saved championship/garage/difficulty state —
+  though the origin does change from the old in-arcade URL
+  (`ottobit.github.io/portfolio-arcade/games/f1-racer/`) to the new one
+  (`ottobit.github.io/f1-racer/`), which **does** start players fresh once
+  the old URL stops being the one they open. Mitigated by keeping the old
+  URL live as a link-out (below) rather than deleting it.
 
-- A second real game is added to the arcade and F1's backend/CI footprint
-  starts affecting its build or deploy.
-- The backend needs its own CI/build pipeline that meaningfully diverges from
-  the current static-site-only workflow in a way that makes `portfolio-arcade`
-  harder to reason about as "just a static arcade".
-- The product direction shifts to F1 having its own brand/domain independent
-  of "ottobit arcade".
+Migration mechanics (tracked in a dedicated migration issue per the original
+#171 acceptance criteria):
+
+- History preserved: `git filter-repo` on a local extraction of
+  `games/f1-racer/` plus the two files it shared with the arcade
+  (`assets/css/style.css`, `assets/images/og-f1-racer.jpg`), path-renamed to
+  the new repo's root, keeping the original commit history intact rather
+  than a single squashed snapshot.
+- Paths adapted for the flat, standalone layout: the shared stylesheet link,
+  `og:url`/`og:image`/`twitter:image`, the arcade back-link (now an
+  absolute cross-repo URL), and doc cross-references in `procedure.md`,
+  `F1-RACER-WIKI.md`, `RELEASE-CHECKLIST.md`, `WORK-HANDOFF.md` and the
+  carried-over `llm-wiki/wiki/f1-racer/` pages that assumed the
+  `games/f1-racer/` prefix.
+- `portfolio-arcade`'s own `assets/js/games.js` entry and `index.html`
+  becomes a link out to `https://ottobit.github.io/f1-racer/` instead of a
+  local `games/f1-racer/` path once this lands.
+- Open issues/PRs: the three in-flight PRs on `portfolio-arcade` (#178, #179,
+  #180) are concluded there first; the remaining open F1 issues move to
+  `ottobit/f1-racer` after that.
 
 ## Driver Names
 
