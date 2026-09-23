@@ -92,8 +92,16 @@
   `games/f1-racer/`'s full commit history plus its two shared assets via
   `git filter-repo`, adapted every path/URL for the new flat root layout,
   and verified both `index.html` and `race.html` load with zero console
-  errors in a real headless-browser check against the migrated tree. Push is
-  blocked on the Claude GitHub App not yet having access to the new repo;
-  enabling GitHub Pages there is a manual step once it does. See the
+  errors in a real headless-browser check against the migrated tree. Pushed
+  the extracted history to `ottobit/f1-racer` and enabled GitHub Pages there
+  once the Claude GitHub App got access; the site is live at
+  `https://ottobit.github.io/f1-racer/`.
+- Settled `portfolio-arcade`'s ongoing role: a proving ground for games not
+  yet worth their own repository, not a deprecated project. A mature game
+  graduates out (own repo, own Pages site, a card in the main portfolio's
+  Playground section) the way F1 just did, instead of the arcade repo
+  hosting every game forever. F1's card is being removed from
+  `assets/js/games.js` rather than repointed, since its home is now
+  Playground, not a link inside the repo it grew out of. See the
   rewritten [Repository Architecture](../wiki/f1-racer/decisions.md#repository-architecture-171)
   entry for the full reasoning and remaining migration steps.

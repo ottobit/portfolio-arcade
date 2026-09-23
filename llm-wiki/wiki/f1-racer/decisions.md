@@ -144,12 +144,24 @@ Migration mechanics (tracked in a dedicated migration issue per the original
   `F1-RACER-WIKI.md`, `RELEASE-CHECKLIST.md`, `WORK-HANDOFF.md` and the
   carried-over `llm-wiki/wiki/f1-racer/` pages that assumed the
   `games/f1-racer/` prefix.
-- `portfolio-arcade`'s own `assets/js/games.js` entry and `index.html`
-  becomes a link out to `https://ottobit.github.io/f1-racer/` instead of a
-  local `games/f1-racer/` path once this lands.
 - Open issues/PRs: the three in-flight PRs on `portfolio-arcade` (#178, #179,
   #180) are concluded there first; the remaining open F1 issues move to
   `ottobit/f1-racer` after that.
+
+### `portfolio-arcade`'s role after the split
+
+`portfolio-arcade` is not being deprecated — it becomes a **proving ground**
+for games that aren't mature enough yet to earn their own repository. A game
+graduates out (its own repo, its own Pages site, a card in the main
+portfolio's Playground section next to entries like Embergale) once it's
+worth that overhead, the way F1 just did.
+
+Because of that, F1's card in `portfolio-arcade`'s `assets/js/games.js` is
+being **removed**, not repointed at the new URL — a graduated game's home is
+the main portfolio's Playground, not a link inside the proving-ground repo
+it grew out of. The portfolio site itself (a separate repository, worked on
+in its own dedicated session) is out of this repo's/wiki's scope; adding
+F1's Playground card there is tracked outside this project's issue tracker.
 
 ## Driver Names
 
