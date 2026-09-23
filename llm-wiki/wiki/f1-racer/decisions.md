@@ -95,6 +95,74 @@ unshifted spline origin. Finish order is locked per car at the configured race
 distance. AI cars must not perform invisible stops on the racing surface; an
 automatic AI pit strategy can return only with a modeled pit lane.
 
+## Repository Architecture (#171)
+
+**Superseded 2026-09-23.** F1 Racer is extracted to its own repository,
+[`ottobit/f1-racer`](https://github.com/ottobit/f1-racer) (public, so GitHub
+Pages keeps working on any plan), published at
+`https://ottobit.github.io/f1-racer/`. `portfolio-arcade` keeps a link out to
+it from `assets/js/games.js` instead of hosting the game itself.
+
+The original call below (stay inside `portfolio-arcade`) was made on
+technical grounds — none of which turned out to be the deciding factor. The
+user reversed it for a reason that argument never weighed: by the time of
+the original call, **every single open issue in `portfolio-arcade` (10 of
+10) was already about F1**, and the roadmap (multiplayer, Agent API, more
+circuits) only grows that share. An "arcade" repo whose entire issue
+tracker, PR history and roadmap belong to one game is not really an arcade
+repo — it is F1's repo wearing the arcade's name, and every future
+unrelated game would have to wade through that history. Splitting now, while
+there's exactly one game to move, is cheap; splitting later, with a second
+game's issues interleaved in the same tracker, would not be.
+
+Practical notes carried over from the superseded analysis (still true, just
+not decisive either way):
+
+- GitHub Pages is static regardless of repo, so the #170 multiplayer backend
+  still needs its own deploy target (e.g. Fly.io/Render) wherever the game
+  code lives.
+- `localStorage` is origin-scoped, not path-scoped. Since both repos publish
+  under `https://ottobit.github.io/...`, moving repos does not by itself
+  drop a returning player's saved championship/garage/difficulty state —
+  though the origin does change from the old in-arcade URL
+  (`ottobit.github.io/portfolio-arcade/games/f1-racer/`) to the new one
+  (`ottobit.github.io/f1-racer/`), which **does** start players fresh once
+  the old URL stops being the one they open. Mitigated by keeping the old
+  URL live as a link-out (below) rather than deleting it.
+
+Migration mechanics (tracked in a dedicated migration issue per the original
+#171 acceptance criteria):
+
+- History preserved: `git filter-repo` on a local extraction of
+  `games/f1-racer/` plus the two files it shared with the arcade
+  (`assets/css/style.css`, `assets/images/og-f1-racer.jpg`), path-renamed to
+  the new repo's root, keeping the original commit history intact rather
+  than a single squashed snapshot.
+- Paths adapted for the flat, standalone layout: the shared stylesheet link,
+  `og:url`/`og:image`/`twitter:image`, the arcade back-link (now an
+  absolute cross-repo URL), and doc cross-references in `procedure.md`,
+  `F1-RACER-WIKI.md`, `RELEASE-CHECKLIST.md`, `WORK-HANDOFF.md` and the
+  carried-over `llm-wiki/wiki/f1-racer/` pages that assumed the
+  `games/f1-racer/` prefix.
+- Open issues/PRs: the three in-flight PRs on `portfolio-arcade` (#178, #179,
+  #180) are concluded there first; the remaining open F1 issues move to
+  `ottobit/f1-racer` after that.
+
+### `portfolio-arcade`'s role after the split
+
+`portfolio-arcade` is not being deprecated — it becomes a **proving ground**
+for games that aren't mature enough yet to earn their own repository. A game
+graduates out (its own repo, its own Pages site, a card in the main
+portfolio's Playground section next to entries like Embergale) once it's
+worth that overhead, the way F1 just did.
+
+Because of that, F1's card in `portfolio-arcade`'s `assets/js/games.js` is
+being **removed**, not repointed at the new URL — a graduated game's home is
+the main portfolio's Playground, not a link inside the proving-ground repo
+it grew out of. The portfolio site itself (a separate repository, worked on
+in its own dedicated session) is out of this repo's/wiki's scope; adding
+F1's Playground card there is tracked outside this project's issue tracker.
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:

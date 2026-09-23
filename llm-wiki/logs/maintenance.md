@@ -76,3 +76,32 @@
   profiles and distance-based red/white paint with a closed UV/normal seam.
   Eased the inland loop's acute apex locally to remove folded kerb faces;
   retained the mapped route and validated both ribbon sides structurally.
+
+## 2026-09-23
+
+- Recorded the #171 repository-architecture decision: F1 Racer stays in
+  `portfolio-arcade`; the #170 backend will deploy as its own service
+  outside GitHub Pages instead of triggering a repo split. Noted that
+  `localStorage` is origin-scoped (not path-scoped), so extraction would not
+  have risked player progress either way — that risk was not the deciding
+  factor.
+- **Superseded the same day**: the user reversed #171 on a ground the
+  original analysis hadn't weighed — every one of `portfolio-arcade`'s open
+  issues was already about F1, so keeping it in an "arcade" repo was already
+  fiction. Created `ottobit/f1-racer` (public), extracted
+  `games/f1-racer/`'s full commit history plus its two shared assets via
+  `git filter-repo`, adapted every path/URL for the new flat root layout,
+  and verified both `index.html` and `race.html` load with zero console
+  errors in a real headless-browser check against the migrated tree. Pushed
+  the extracted history to `ottobit/f1-racer` and enabled GitHub Pages there
+  once the Claude GitHub App got access; the site is live at
+  `https://ottobit.github.io/f1-racer/`.
+- Settled `portfolio-arcade`'s ongoing role: a proving ground for games not
+  yet worth their own repository, not a deprecated project. A mature game
+  graduates out (own repo, own Pages site, a card in the main portfolio's
+  Playground section) the way F1 just did, instead of the arcade repo
+  hosting every game forever. F1's card is being removed from
+  `assets/js/games.js` rather than repointed, since its home is now
+  Playground, not a link inside the repo it grew out of. See the
+  rewritten [Repository Architecture](../wiki/f1-racer/decisions.md#repository-architecture-171)
+  entry for the full reasoning and remaining migration steps.
