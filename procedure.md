@@ -40,14 +40,12 @@ In assenza di un accordo preventivo esplicito sulla modalita auto-conclusione, v
 - Se una verifica richiede molti token o tempo, dichiararla come verifica manuale dell'utente invece di eseguirla automaticamente.
 - Se il repository non dispone dell'ambiente necessario per un check strutturale, indicare esplicitamente il limite nella PR.
 
-## F1 Racer
+## Giochi laureati
 
-Per le modifiche in `games/f1-racer/`, mantenere aggiornati quando necessario:
-
-- `games/f1-racer/F1-RACER-WIKI.md` per architettura e comportamento.
-- `games/f1-racer/RELEASE-CHECKLIST.md` per nuovi casi di regressione e release gate.
-- `llm-wiki/wiki/f1-racer/` per decisioni durevoli, roadmap e memoria di progetto
-  che non deve perdersi tra chat, issue e PR.
+F1 Racer è stato il primo gioco a "laurearsi" da questo banco di prova: vive
+ora in [`ottobit/f1-racer`](https://github.com/ottobit/f1-racer), con la sua
+propria `procedure.md`. La sua storia e le decisioni prese qui prima della
+laurea restano in `llm-wiki/wiki/f1-racer/`, per riferimento.
 
 ## LLM Wiki
 
