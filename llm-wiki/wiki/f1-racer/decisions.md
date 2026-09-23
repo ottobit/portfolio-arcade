@@ -95,6 +95,45 @@ unshifted spline origin. Finish order is locked per car at the configured race
 distance. AI cars must not perform invisible stops on the racing surface; an
 automatic AI pit strategy can return only with a modeled pit lane.
 
+## Repository Architecture (#171)
+
+F1 Racer stays inside `portfolio-arcade`, in `games/f1-racer/`, for now. No
+extraction to a dedicated repository.
+
+Reasoning:
+
+- The repo-split question is orthogonal to "can the #170 multiplayer backend
+  deploy from here": GitHub Pages only serves static content regardless of
+  which repo hosts the game, so a WebSocket/SFU backend needs its own deploy
+  target (e.g. Fly.io/Render) either way. Splitting the repo does not solve
+  that by itself.
+- `localStorage` (championship state, garage setup, driver/difficulty
+  choices) is scoped by origin (`https://ottobit.github.io`), not by path.
+  Moving F1 to its own repo under the same GitHub account would keep the same
+  origin and would not silently drop saved progress. Splitting is not needed
+  to protect existing player state.
+- `portfolio-arcade` exists specifically to hold multiple mini-games under one
+  static site (`assets/js/games.js` is a registry for exactly that). F1 is
+  currently the only game, but extracting the flagship game now would
+  contradict that structure without a concrete second game or backend need
+  forcing the issue yet.
+- Extraction has real one-time costs (new Pages setup, redirects for the
+  existing `.../portfolio-arcade/games/f1-racer/` URL already shared/linked,
+  split issue/PR history) that are not worth paying speculatively.
+
+Decision: implement the #170 backend as an independently deployed service
+(its own subdirectory, e.g. `games/f1-racer/server/`, with its own hosting
+target and CI, not via GitHub Pages) while the game itself stays in this
+repo. Revisit extraction if any of the following becomes true:
+
+- A second real game is added to the arcade and F1's backend/CI footprint
+  starts affecting its build or deploy.
+- The backend needs its own CI/build pipeline that meaningfully diverges from
+  the current static-site-only workflow in a way that makes `portfolio-arcade`
+  harder to reason about as "just a static arcade".
+- The product direction shifts to F1 having its own brand/domain independent
+  of "ottobit arcade".
+
 ## Driver Names
 
 The custom friend names currently assigned across teams are:

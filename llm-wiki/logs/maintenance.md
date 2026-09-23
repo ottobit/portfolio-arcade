@@ -76,3 +76,12 @@
   profiles and distance-based red/white paint with a closed UV/normal seam.
   Eased the inland loop's acute apex locally to remove folded kerb faces;
   retained the mapped route and validated both ribbon sides structurally.
+
+## 2026-09-23
+
+- Recorded the #171 repository-architecture decision: F1 Racer stays in
+  `portfolio-arcade`; the #170 backend will deploy as its own service
+  outside GitHub Pages instead of triggering a repo split. Noted that
+  `localStorage` is origin-scoped (not path-scoped), so extraction would not
+  have risked player progress either way — that risk was not the deciding
+  factor.

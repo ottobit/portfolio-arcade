@@ -7,6 +7,11 @@
 
 ## Technical Follow-Ups
 
+- [#170](https://github.com/ottobit/portfolio-arcade/issues/170): multiplayer
+  backend (rooms, race sync, broadcast voice). Per the [repository
+  architecture decision](decisions.md#repository-architecture-171), implement
+  it as an independently deployed service, not via GitHub Pages, while the
+  game itself stays in `portfolio-arcade`.
 - [#143](https://github.com/ottobit/portfolio-arcade/issues/143): reduce the
   remaining responsibilities in `main.js` where extraction lowers real
   complexity.
