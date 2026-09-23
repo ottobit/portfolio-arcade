@@ -30,4 +30,4 @@ wiki estesa affianca il handoff tecnico compatto in
 
 ## Giochi
 
-- **F1 Racer** (`games/f1-racer/`) — in sviluppo, meccaniche ancora da definire.
+- **F1 Racer** (`games/f1-racer/`) — mini-campionato 3D multi-circuito: qualifica, garage/assetto, selezione pilota, griglia a dieci piloti, classifica a punti.
