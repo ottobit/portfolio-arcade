@@ -2,6 +2,11 @@ function renderGames() {
   const grid = document.getElementById("game-grid");
   if (!grid) return;
 
+  if (GAMES.length === 0) {
+    grid.innerHTML = `<p class="empty-state">Banco di prova vuoto per ora — torna a trovarci.</p>`;
+    return;
+  }
+
   grid.innerHTML = GAMES.map((game) => {
     const isPlayable = game.status === "playable";
     const badge = isPlayable ? "" : `<span class="badge">In arrivo</span>`;

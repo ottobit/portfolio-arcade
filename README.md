@@ -30,4 +30,6 @@ wiki estesa affianca il handoff tecnico compatto in
 
 ## Giochi
 
-- **F1 Racer** (`games/f1-racer/`) — mini-campionato 3D multi-circuito: qualifica, garage/assetto, selezione pilota, griglia a dieci piloti, classifica a punti.
+Banco di prova per giochi non ancora abbastanza maturi per un repository proprio. Un gioco "si laurea" (repo dedicato, sito Pages proprio, card nella sezione Playground del portfolio principale) quando lo è — vedi la decisione [`llm-wiki/wiki/f1-racer/decisions.md`](llm-wiki/wiki/f1-racer/decisions.md#repository-architecture-171) per il caso F1 Racer, il primo a farlo.
+
+Nessun gioco attualmente in vetrina qui.
