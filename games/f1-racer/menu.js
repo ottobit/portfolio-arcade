@@ -135,6 +135,8 @@ document.getElementById("driver-select").addEventListener("click", (e) => {
 function render() {
   renderDifficulty();
   renderDriverSelect();
+  const statCircuits = document.getElementById("stat-circuits");
+  if (statCircuits) statCircuits.textContent = CIRCUITS.length;
   const { standings, allRaced, state } = computeStandings(CIRCUITS);
 
   if (!circuitSelectionInitialized) {
@@ -179,7 +181,7 @@ function render() {
             <div class="circuit-meta"><span>${personality.type}</span><span>${personality.level}</span></div>
             <h2>${circuit.name}</h2>
             <p>${personality.note}</p>
-            <div class="circuit-facts"><span><b>${LAPS_PER_RACE}</b> giri</span><span><b>9</b> rivali</span><span>${circuit.weather === "pioggia" ? "🌧️ Bagnato" : "☀️ Asciutto"}</span></div>
+            <div class="circuit-facts"><span><b>${LAPS_PER_RACE}</b> giri</span><span><b>${DRIVER_ROSTER.length - 1}</b> rivali</span><span>${circuit.weather === "pioggia" ? "🌧️ Bagnato" : "☀️ Asciutto"}</span></div>
             <div class="circuit-launch"><span class="circuit-status">${status}</span><a class="circuit-race-link" href="race.html?circuit=${circuit.id}&difficulty=${difficulty}">SCENDI IN PISTA →</a></div>
           </div>
         </div>
