@@ -19,9 +19,10 @@ Nessun build step: HTML/CSS/JS serviti così come sono.
 ## Memoria di progetto
 
 La conoscenza durevole del progetto vive in [`llm-wiki/`](llm-wiki/README.md):
-fonti sintetizzate, pagine wiki e istruzioni per gli agenti. Per F1 Racer, la
-wiki estesa affianca il handoff tecnico compatto in
-[`games/f1-racer/F1-RACER-WIKI.md`](games/f1-racer/F1-RACER-WIKI.md).
+fonti sintetizzate, pagine wiki e istruzioni per gli agenti. La storia di F1
+Racer (primo gioco a "laurearsi" da questo banco di prova) resta in
+[`llm-wiki/wiki/f1-racer/`](llm-wiki/wiki/f1-racer/); il suo handoff tecnico
+vive ora in [`ottobit/f1-racer`](https://github.com/ottobit/f1-racer).
 
 ## Aggiungere un gioco
 
